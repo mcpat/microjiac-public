@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac-platforms</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	
+	<groupId>de.jiac.micro.platforms</groupId>
+	<artifactId>microjiac-cdc-impls</artifactId>
+	<packaging>pom</packaging>
+
+	<name>CDC Implementations</name>
+	<description>MicroJIAC modules for the Connected Device Configuration (JDK1.3+)</description>
+	<url>${base-url}/platforms/cdc</url>
+
+	<distributionManagement>
+		<site>
+			<id>${site-repo-id}</id>
+			<url>${base-site-url}/platforms/cdc</url>
+		</site>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.mcpat.apistubs</groupId>
+			<artifactId>cdc-1.1.2-stub</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.libxjava</groupId>
+			<artifactId>libxjava-cdc</artifactId>
+			<version>${libxjava-version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.3</source>
+						<target>1.3</target>
+						<compilerArguments>
+							<bootclasspath>${cdc-stub-jar}</bootclasspath>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<modules>
+		<module>microjiac-cdc-launcher</module>
+		<module>microjiac-cdc-common</module>
+	</modules>
+</project>

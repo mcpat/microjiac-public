@@ -1,0 +1,78 @@
+~~
+~~ MicroJIAC - A Lightweight Agent Framework
+~~ This file is part of MicroJIAC Java6-Platform.
+~~
+~~ Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+~~
+~~ This library includes software developed at DAI-Labor, Technische
+~~ Universität Berlin (http://www.dai-labor.de)
+~~
+~~ This library is free software: you can redistribute it and/or modify it
+~~ under the terms of the GNU Lesser General Public License as published
+~~ by the Free Software Foundation, either version 3 of the License, or
+~~ (at your option) any later version.
+~~
+~~ This library is distributed in the hope that it will be useful, but
+~~ WITHOUT ANY WARRANTY; without even the implied warranty of
+~~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+~~ GNU Lesser General Public License for more details.
+~~
+~~ You should have received a copy of the GNU Lesser General Public License
+~~ along with this library.  If not, see <http://www.gnu.org/licenses/>.
+~~
+
+ ------
+ Introduction
+ ------
+ Marcel Patzlaff
+ ------
+ 2010.12.14
+ ------
+
+
+MicroJIAC Java6-Platform Documentation
+
+  The <<microjiac-java6-platform>> module is a platform implementation of MicroJIAC for the Java 6 Edition.
+  It can be used to execute agents (and nodes) on a normal desktop or server environment and to exploit all
+  features a full Java RE supports.
+
+* Measurement data
+
+  The data delow are measured by using the test class SetupMeasurement
+  with the following environment:
+  
+  * Processor: Intel Core 2 Duo 2.53GHz
+  
+  * Memory: 4.00 GB RAM
+  
+  * Operating System: x86_64 GNU/Linux (Debian); Kernel 2.6.30-2-amd64
+  
+  * Java Version: JRE 1.6.0_17
+  
+  []
+
+  The following data includes processing of XML configuration, generating Java sources and compiling them to configuration classes.
+
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Scenario                     | Setup time(ms) | Heap memory usage (kB) | Non-heap memory usage (kB) | Number of live threads | Number of loaded classes
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  JVM without any application  |              - |                    930 |                      3.252 |                      4 |                     345
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Node without any features    |          1.222 |                 13.555 |                     13.320 |                      5 |                   1.865
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Node only with one agent     |          1.338 |                 14.350 |                     13.404 |                      8 |                   1.884
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Node only with communication |          1.498 |                 21.792 |                     15.243 |                      7 |                   2.136
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+
+  The second table contains data for the raw setup without any processing or compilation.
+
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Scenario                     | Setup time(ms) | Heap memory usage (kB) | Non-heap memory usage (kB) | Number of live threads | Number of loaded classes
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Node without any features    |             74 |                  2.481 |                      3.535 |                      5 |                     412
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Node only with one agent     |             78 |                  3.101 |                      3.614 |                      8 |                     431
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:
+  Node only with communication |            342 |                 10.089 |                      5.903 |                      7 |                     767
+*------------------------------+----------------:------------------------:----------------------------:------------------------:-------------------------:

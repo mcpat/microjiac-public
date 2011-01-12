@@ -1,0 +1,57 @@
+<!--
+
+    MicroJIAC - A Lightweight Agent Framework
+    This file is part of MicroJIAC MIDlet-Maven-Plugin.
+
+    Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+
+    This library includes software developed at DAI-Labor, Technische
+    Universität Berlin (http://www.dai-labor.de)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+-->
+
+<component-set>
+    <components>
+        <component>
+            <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+            <role-hint>midlet</role-hint>
+            <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+            <configuration>
+                <phases>
+                    <process-resources>org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
+                    <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile>
+                    <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
+                    <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
+                    <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+                    <package>de.jiac.micro.tools:microjiac-midlet-maven-plugin:midletjar</package>
+                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+                    <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+                </phases>
+            </configuration>
+        </component>
+		<component>
+			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+			<role-hint>midlet</role-hint>
+			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+			<configuration>
+				<type>java</type>
+				<extension>jar</extension>
+				<language>java</language>
+				<addedToClasspath>false</addedToClasspath>
+			</configuration>
+		</component>
+    </components>
+</component-set>

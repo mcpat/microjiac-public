@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac-extensions</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.extensions</groupId>
+	<artifactId>microjiac-activemq-broker</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MicroJIAC ActiveMQ-Broker</name>
+	<description>Embedded ActiveMQ-Broker for MicroJIAC</description>
+
+	<properties>
+		<activemq-version>5.3.0</activemq-version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.jiac.micro.platforms.cdc</groupId>
+			<artifactId>microjiac-cdc-common</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.libxjava</groupId>
+			<artifactId>libxjava-cldc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.slf4j</groupId>
+			<artifactId>slf4cldc-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>${activemq-version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.5</source>
+						<target>1.5</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

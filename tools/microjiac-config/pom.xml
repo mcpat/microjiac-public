@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac-tools</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.tools</groupId>
+	<artifactId>microjiac-config</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MicroJIAC Config</name>
+	<description>Configuration checker and class generator for MicroJIAC.</description>
+	
+	<properties>
+		<asm-version>3.1</asm-version>
+		<aamm-version>1.1-SNAPSHOT</aamm-version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>de.dailab.jiac.common</groupId>
+			<artifactId>aamm-checker</artifactId>
+			<version>${aamm-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.slf4j</groupId>
+			<artifactId>slf4cldc-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>${asm-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm-analysis</artifactId>
+			<version>${asm-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm-commons</artifactId>
+			<version>${asm-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm-tree</artifactId>
+			<version>${asm-version}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.5</source>
+						<target>1.5</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+
+    MicroJIAC - A Lightweight Agent Framework
+    This file is part of MicroJIAC MIDlet-Platform.
+
+    Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+
+    This library includes software developed at DAI-Labor, Technische
+    Universität Berlin (http://www.dai-labor.de)
+
+    This library is free software: you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this library.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<faqs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://maven.apache.org/maven-1.x/plugins/faq/faq.xsd" title="Frequently Asked Questions" toplink="false">
+    <part id="general">
+        <title>General</title>
+        <faq id="what">
+            <question>What is the microjiac-midlet-platform module for?</question>
+            <answer>
+              <p>
+				It contains the MicroJIAC platform implementation for MIDlet-based
+				execution environments, such as mobile phones or SunSPOTs.
+              </p>
+            </answer>
+        </faq>
+    </part>
+    <part id="usage">
+        <title>Usage</title>
+        <faq id="how-use">
+            <question>How do I use the microjiac-midlet-platform module?</question>
+            <answer>
+              <p>
+				Specify the dependency and change the packaging type of your module
+				to <strong>midlet</strong>. You also have to specify the MicroJIAC MIDlet-Maven-Plugin
+				in your build process, so that all required compilation and packaging steps
+				are done.
+              </p>
+            </answer>
+        </faq>
+    </part>
+</faqs>

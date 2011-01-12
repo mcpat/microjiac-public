@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro.platforms.cldc</groupId>
+		<artifactId>microjiac-cldc-impls</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.platforms.cldc</groupId>
+	<artifactId>microjiac-midlet-platform</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+		<microjiac-module-category>platform</microjiac-module-category>
+		<module-bootclasspath>${cldc-stub-jar}:${imp-stub-jar}</module-bootclasspath>
+	</properties>
+
+	<name>MicroJIAC MIDlet-Platform</name>
+	<description>MicroJIAC platform for MIDlet based profiles</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.mcpat.apistubs</groupId>
+			<artifactId>imp-1.0-stub</artifactId>
+		</dependency>
+		
+		<!-- platform has to pull all dependencies -->
+		<dependency>
+			<groupId>de.jiac.micro.platforms.cldc</groupId>
+			<artifactId>microjiac-cldc-common</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.jiac.micro.platforms.cldc</groupId>
+			<artifactId>microjiac-midlet-launcher</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.libxjava</groupId>
+			<artifactId>libxjava-cldc</artifactId>
+			<version>${libxjava-version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.slf4j</groupId>
+			<artifactId>slf4cldc-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.slf4j</groupId>
+			<artifactId>slf4cldc-simple</artifactId>
+			<version>${slf4j-version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

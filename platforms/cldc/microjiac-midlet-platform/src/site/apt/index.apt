@@ -1,0 +1,72 @@
+~~
+~~ MicroJIAC - A Lightweight Agent Framework
+~~ This file is part of MicroJIAC MIDlet-Platform.
+~~
+~~ Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+~~
+~~ This library includes software developed at DAI-Labor, Technische
+~~ Universität Berlin (http://www.dai-labor.de)
+~~
+~~ This library is free software: you can redistribute it and/or modify it
+~~ under the terms of the GNU Lesser General Public License as published
+~~ by the Free Software Foundation, either version 3 of the License, or
+~~ (at your option) any later version.
+~~
+~~ This library is distributed in the hope that it will be useful, but
+~~ WITHOUT ANY WARRANTY; without even the implied warranty of
+~~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+~~ GNU Lesser General Public License for more details.
+~~
+~~ You should have received a copy of the GNU Lesser General Public License
+~~ along with this library.  If not, see <http://www.gnu.org/licenses/>.
+~~
+
+ ------
+ MIDlet-Platform
+ ------
+ Marcel Patzlaff
+ ------
+ 2010.12.14
+ ------
+
+MicroJIAC MIDlet-Platform Documentation
+
+  The <<microjiac-midlet-platform>> module is a platform implementation of MicroJIAC for all MIDlet-based Profiles (such as IMP and MIDP).
+
+* Measurement data
+
+  The data delow are measured by using a special node launcher implementation on the following environment:
+  
+  * Processor: 32-bit ARM920T Core Processor 180MHz
+  
+  * Memory: 512 KB RAM
+  
+  * Operating System: Squawk VM (red-100104)
+  
+  * Java Version: Squawk VM (red-100104) (IMP 1.0 compatible)
+  
+  []
+
+  The following data is without class optimisations:
+
+*------------------------------+----------------:-------------------:
+  Scenario                     | Setup time(ms) | Memory usage (kB) |
+*------------------------------+----------------:-------------------:
+  VM without any application   |              1 |                85 |
+*------------------------------+----------------:-------------------:
+  Node without any features    |            224 |                90 |
+*------------------------------+----------------:-------------------:
+  Node only with one agent     |            390 |                96 |
+*------------------------------+----------------:-------------------:
+
+  The next table contains measurements after processing the classes with {{{http://proguard.sourceforge.net/}ProGuard}}.
+
+*------------------------------+----------------:-------------------:
+  Scenario                     | Setup time(ms) | Memory usage (kB) |
+*------------------------------+----------------:-------------------:
+  VM without any application   |              1 |                85 |
+*------------------------------+----------------:-------------------:
+  Node without any features    |            198 |                90 |
+*------------------------------+----------------:-------------------:
+  Node only with one agent     |            352 |                96 |
+*------------------------------+----------------:-------------------:

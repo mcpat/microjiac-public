@@ -1,0 +1,69 @@
+~~
+~~ MicroJIAC - A Lightweight Agent Framework
+~~ This file is part of MicroJIAC MIDlet-Maven-Plugin.
+~~
+~~ Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+~~
+~~ This library includes software developed at DAI-Labor, Technische
+~~ Universität Berlin (http://www.dai-labor.de)
+~~
+~~ This program is free software: you can redistribute it and/or modify
+~~ it under the terms of the GNU General Public License as published by
+~~ the Free Software Foundation, either version 3 of the License, or
+~~ (at your option) any later version.
+~~
+~~ This program is distributed in the hope that it will be useful,
+~~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+~~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+~~ GNU General Public License for more details.
+~~
+~~ You should have received a copy of the GNU General Public License
+~~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+~~
+
+ ------
+ Introduction
+ ------
+ Marcel Patzlaff
+ ------
+ 2010.01.21
+ ------
+
+Describing your application
+
+  If you want to run your application on a MIDlet-based device (IMP or MIDP) you have to
+  describe your application.
+  You have to define at least the namespace of the node (or application) configuration. The
+  MIDlet related parameters are determined automatically from the project settings.
+    
+  Here an example <<<pom.xml>>> is given:
+  
++-----------------+
+<project>
+  ...
+  <packaging>midlet</packaging>
+  ...
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>de.jiac.micro.tools</groupId>
+        <artifactId>midlet-maven-plugin</artifactId>
+        ...
+        <extensions>true</extensions>
+        <configuration>
+          ...
+          <keepJars>false</keepJars>                <!-- plugins default value -->
+          <obfuscation>true</obfuscation>           <!-- plugins default value -->
+          <preverifyPath>/usr/bin</preverifyPath>   <!-- optional to override ProGuard Preverifier -->
+          ...
+          <applicationDefinition>
+           org.foo.bar                              <!-- org/foo/bar.xml is the configuration to use -->
+          </applicationDefinition>
+          ...
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  ...
+</project>
++-----------------+

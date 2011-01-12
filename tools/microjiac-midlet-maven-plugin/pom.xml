@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac-tools</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.tools</groupId>
+	<artifactId>microjiac-midlet-maven-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+
+	<name>MicroJIAC MIDlet-Maven-Plugin</name>
+	<description>Bundle of Maven extensions to build MicroJIAC modules for MIDlet-based profiles.</description>
+
+	<properties>
+		<proguard-version>4.3</proguard-version>
+		<microjiac-header>${project.basedir}/gpl_header.txt</microjiac-header>
+	</properties>
+	
+	<licenses>
+		<license>
+			<name>GNU General Public License, Version 3+</name>
+			<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-artifact</artifactId>
+				<version>2.2.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.jiac.micro.tools</groupId>
+			<artifactId>microjiac-config</artifactId>
+			<version>3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-archiver</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.proguard</groupId>
+			<artifactId>proguard-base</artifactId>
+			<version>${proguard-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.slf4j</groupId>
+			<artifactId>slf4cldc-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-plugin-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.5</source>
+						<target>1.5</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro</groupId>
+	<artifactId>microjiac-tools</artifactId>
+	<packaging>pom</packaging>
+	
+	<name>Tools</name>
+	<url>${base-url}/tools</url>
+	
+	<properties>
+		<microjiac-module-category>tool</microjiac-module-category>
+	</properties>
+	
+	<distributionManagement>
+		<site>
+			<id>${site-repo-id}</id>
+			<url>${base-site-url}/tools</url>
+		</site>
+	</distributionManagement>
+	
+	<modules>
+		<module>microjiac-config</module>
+		<module>microjiac-midlet-maven-plugin</module>
+		<module>microjiac-test-scope</module>
+	</modules>
+	
+	<profiles>
+		<profile>
+			<id>__android_maven_plugin_build__</id>
+			<activation>
+				<file>
+					<exists>microjiac-android-maven-plugin</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>microjiac-android-maven-plugin</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>__asgard_plugin_build__</id>
+			<activation>
+				<file>
+					<exists>microjiac-asgard-plugin</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>microjiac-asgard-plugin</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>__osgi_maven_plugin_build__</id>
+			<activation>
+				<file>
+					<exists>microjiac-osgi-maven-plugin</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>microjiac-osgi-maven-plugin</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

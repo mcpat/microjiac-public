@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac-extensions</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.extensions</groupId>
+	<artifactId>microjiac-interaction</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MicroJIAC Interaction</name>
+	<description>Basic interaction layer for MicroJIAC. It supports message association and helps specifying interaction protocols</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.jiac.micro</groupId>
+			<artifactId>microjiac-base-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.jiac.micro</groupId>
+			<artifactId>microjiac-base-impl</artifactId>
+			<classifier>stubs</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.libxjava</groupId>
+			<artifactId>libxjava-cldc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.slf4j</groupId>
+			<artifactId>slf4cldc-api</artifactId>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,124 @@
+/**
+ * MicroJIAC - A Lightweight Agent Framework
+ * This file is part of MicroJIAC.
+ *
+ * Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+ *
+ * This library includes software developed at DAI-Labor, Technische
+ * Universität Berlin (http://www.dai-labor.de)
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+digraph microjiac {
+	rankdir=BT;
+	compound=true;
+
+/*	subgraph clusterE {
+		node [fillcolor="#BF77EE", style=filled];
+		"io-utils"; "basic-locking"; "interaction"; "service-engine";
+		"stomp-broker"; "stomp-client";
+		label="ext";
+	}
+
+	subgraph clusterC {
+		node [fillcolor="#80B72D", style=filled];
+		"base-api"; "common-impl"; "nrt-common"; "cdc-common";
+		label="core";
+	}
+
+	subgraph clusterL {
+//		node [fillcolor="#80B72D", style=filled];
+		"cdc-launcher"; "midlet-launcher";
+		label="launcher";
+	}
+
+	subgraph clusterP {
+		node [fillcolor="#FFC0CB", style=filled];
+		"standalone"; "midlet-platform";
+		label="platforms";
+	} */
+
+	{ node [fillcolor="#80B72D", style=filled]
+		group=ext; "io-utils"; "basic-locking"; "interaction"; "service-engine"; 
+	}
+	{ node [fillcolor="#FFC0CB", style=filled]; group=core;
+		"base-api"; "common-impl";
+	};
+	{ node [fillcolor="#D6B2EE", style=filled]; group=nrt;
+		"nrt-common"; "cdc-common";
+	};
+	{ group=launch; "cdc-launcher"; "midlet-launcher"; }
+	{ node[fillcolor="#BF77EE", style=filled]; group=platform;
+		"standalone"; "midlet-platform";
+	}
+
+	{ node[fontcolor=white, color=gray, fillcolor=gray, style=filled]; group=diss; rank=same;
+		"monitoring-platform"; "realtime-platform";
+	}
+
+	"common-impl" -> "base-api" [label="r"];
+	"common-impl" -> "basic-locking";
+	
+	"cdc-common" -> "nrt-common";
+	"cdc-common" -> "cdc-launcher";
+	
+	"midlet-platform" -> "nrt-common";
+	"midlet-platform" -> "midlet-launcher";
+	"midlet-platform" -> "io-utils";
+	
+	"service-engine" -> "io-utils";
+	"service-engine" -> "interaction";
+	
+	"stomp-broker" -> "io-utils";
+
+	"stomp-client" -> "io-utils";
+
+	"standalone" -> "cdc-common";
+	"standalone" -> "cdc-launcher";
+	"standalone" -> "config";
+	"standalone" -> "io-utils";
+	
+	"cdc-launcher" -> "base-api" [label="b"];
+	"cdc-launcher" -> "io-utils";
+
+	"midlet-launcher" -> "base-api" [label="b"];
+
+	"nrt-common" -> "common-impl" [label="r"];
+
+	"realtime-platform" -> "common-impl" [label="r"];
+	"realtime-platform" -> "cdc-launcher";
+
+	"monitoring-platform" -> "cdc-common";
+	"monitoring-platform" -> "cdc-launcher";
+	"monitoring-platform" -> "standalone" [color="gray"];
+
+	/* provided dependencies */
+/*	"common-impl" -> "base-api" [style=dotted, color="gray"];
+
+	"midp-extensions" -> "midlet-platform" [style=dotted, color="gray"];
+
+	"interaction" -> "base-api" [label="r", style=dotted, color="gray", fontcolor="gray"];
+	"interaction" -> "common-impl" [label="r", style=dotted, color="gray", fontcolor="gray"];
+
+	"service-engine" -> "base-api" [label="r", style=dotted, color="gray", fontcolor="gray"];
+	"service-engine" -> "common-impl" [label="r", style=dotted, color="gray", fontcolor="gray"];
+
+	"stomp-broker" -> "cdc-common" [style=dotted, color="gray"];
+	
+	"stomp-client" -> "nrt-common" [style=dotted, color="gray"];
+	"stomp-client" -> "base-api" [label="r", style=dotted, color="gray", fontcolor="gray"];
+
+	"nrt-common" -> "base-api" [label="b", style=dotted, color="gray", fontcolor="gray"]; */
+}

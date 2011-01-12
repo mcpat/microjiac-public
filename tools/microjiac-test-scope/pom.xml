@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac-tools</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.tools</groupId>
+	<artifactId>microjiac-test-scope</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MicroJIAC Test-Scope</name>
+	<description>Dummy Scope for Testing in MicroJIAC</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.jiac.micro</groupId>
+			<artifactId>microjiac-base-impl</artifactId>
+			<version>3.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>	

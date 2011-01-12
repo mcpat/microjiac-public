@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro.platforms</groupId>
+		<artifactId>microjiac-java6-impls</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.platforms.java6</groupId>
+	<artifactId>microjiac-java6-platform</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MicroJIAC Java6-Platform</name>
+	<description>Java 6 Version of MicroJIAC for J2SE</description>
+
+	<properties>
+		<microjiac-module-category>platform</microjiac-module-category>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.jiac.micro.tools</groupId>
+			<artifactId>microjiac-config</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.mcpat.libxjava</groupId>
+			<artifactId>libxjava-jse5</artifactId>
+			<version>${libxjava-version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.mcpat.gcf</groupId>
+			<artifactId>gcf-standard</artifactId>
+			<version>0.6</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.jiac.micro.platforms.cdc</groupId>
+			<artifactId>microjiac-cdc-launcher</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>de.jiac.micro.platforms.cdc</groupId>
+			<artifactId>microjiac-cdc-common</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>1.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

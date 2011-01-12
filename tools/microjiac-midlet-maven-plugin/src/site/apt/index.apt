@@ -1,0 +1,78 @@
+~~
+~~ MicroJIAC - A Lightweight Agent Framework
+~~ This file is part of MicroJIAC MIDlet-Maven-Plugin.
+~~
+~~ Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+~~
+~~ This library includes software developed at DAI-Labor, Technische
+~~ Universität Berlin (http://www.dai-labor.de)
+~~
+~~ This program is free software: you can redistribute it and/or modify
+~~ it under the terms of the GNU General Public License as published by
+~~ the Free Software Foundation, either version 3 of the License, or
+~~ (at your option) any later version.
+~~
+~~ This program is distributed in the hope that it will be useful,
+~~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+~~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+~~ GNU General Public License for more details.
+~~
+~~ You should have received a copy of the GNU General Public License
+~~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+~~
+
+ ------
+ Introduction
+ ------
+ Marcel Patzlaff
+ ------
+ 2010.12.13
+ ------
+
+
+MicroJIAC MIDlet-Maven-Plugin
+
+  This plugin provides the capability to package the project into a jar and to create
+  the Java Application Descriptor <<<.jad>>>.
+  
+  In some details its usage is same like the Maven 2 JAR Plugin.
+
+* Goals Overview
+
+  * {{{./depextract-mojo.html}microjiac-midlet:depextract}} extracts all runtime dependencies into your classes folder.
+    You have to ensure that you mark the right dependencies of your module with the scope "runtime"!
+  
+  * {{{./depsjar-mojo.html}microjiac-midlet:depsjar}} bundles all classes in the class folder and creates a JARchive.
+  
+  * {{{./genconfig-mojo.html}microjiac-midlet:genconfig}} processes the *.xml configurations and generates Java source
+    files from them.
+
+  * {{{./jad-mojo.html}microjiac-midlet:jad}} packages the project classes and create a Java Application Descriptor.
+  
+  * {{{./midletjar-mojo.html}microjiac-midlet:midletjar}} forks the lifecycle that builds the obfuscated and preverified
+    JARs and their associated Java Application Descriptors.
+
+  * {{{./preverify-mojo.html}microjiac-midlet:preverify}} preverifes your project classes if a preverifyPath is specified.
+
+  * {{{./proguard-mojo.html}microjiac-midlet:proguard}} executes ProGuard to reduce the size your project classes
+    and to preverify if no preverifyPath is specified.
+
+  * {{{./reflect-mojo.html}microjiac-midlet:reflect}} generates a Reflector class for basic reflection tasks.
+  
+  []
+
+* Usage
+
+  Instructions on how to use the MIDlet Plugin can be found {{{./usage.html}here}}.
+
+  Manifest customisation is the same like in the Maven 2 JAR Plugin. Please consult
+  {{{http://maven.apache.org/guides/mini/guide-manifest.html}Guide
+  to Working with Manifests}} for further information. Remember to exchange the
+  plugin name!
+
+* Examples
+
+  To provide you with better understanding of some usages of the JAR Plugin,
+  you can take a look at the following examples:
+
+  * {{{./examples/descriptor.html}Describe your application}}

@@ -1,0 +1,95 @@
+<!--
+
+    MicroJIAC - A Lightweight Agent Framework
+    This file is part of MicroJIAC.
+
+    Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+
+    This library includes software developed at DAI-Labor, Technische
+    Universität Berlin (http://www.dai-labor.de)
+
+    This library is free software: you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this library.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>MicroJIAC Concepts</title>
+		<author email="marcel.patzlaff@dai-labor.de">Marcel Patzlaff</author>
+	</properties>
+	<body>
+		<section name="Overview">
+			<a href="images/concepts_overview.png">
+				<img src="images/concepts_overview.png" alt="Concepts" width="250"/>
+			</a>
+			<a href="images/node_overview.png">
+				<img src="images/node_overview.png" alt="Node" width="250"/>
+			</a>
+			<a href="images/agent_overview.png">
+				<img src="images/agent_overview.png" alt="Agent" width="250"/>
+			</a>
+		</section>
+		<section name="Technologies">
+			<p>The used technologies are:</p>
+			<ul>
+				<li>Connected Limited Device Configuration (CLDC) 1.1</li>
+				<li>Connected Device Configuration (CDC) 1.1.2</li>
+				<li>Mobile Information Device Profile (MIDP) 2.0</li>
+				<li>Java SE 6</li>
+				<li>AAMM 1.1</li>
+				<li>ActiveMQ 5.3.0</li>
+				<li>ProGuard 4.4</li>
+				<li>ASM 3.1</li>
+				<li>Simple Logging Facade 1.6.0</li>
+			</ul>
+		</section>
+		
+		<section name="Requirements">
+			<p>The requirements depend on which MicroJIAC edition you intend to use.</p>
+			<subsection name="MIDlet-based">
+				<p>For MIDlet-based MicroJIAC editions you need on the host system:</p>
+				<ul>
+					<li>32-bit CPU</li>
+					<li>2 MB RAM</li>
+					<li>CLDC &gt;=1.1 and MIDP &gt;=2.0 / IMP &gt;=1.0</li>
+				</ul>
+			</subsection>
+			<subsection name="CDC-based">
+				<p>For CDC-based MicroJIAC editions you need on the host system:</p>
+				<ul>
+					<li>32-bit CPU</li>
+					<li>8 MB RAM</li>
+					<li>CDC &gt;=1.1.2 and an appropriate Profile</li>
+				</ul>
+			</subsection>
+			<subsection name="Java6-based">
+				<p>For Java6-based MicroJIAC editions you need on the host system:</p>
+				<ul>
+					<li>500 MHz CPU</li>
+					<li>256 MB RAM</li>
+					<li>Java 6 or higher</li>
+				</ul>
+			</subsection>
+			<p>The build environment always (= for all MicroJIAC editions) needs the following:</p>
+			<ul>
+				<li>1 GHz CPU</li>
+				<li>512 MB RAM</li>
+				<li>installed Java 6 or higher</li>
+				<li>installed Maven 3 or higher</li>
+			</ul>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro</groupId>
+	<artifactId>microjiac-extensions</artifactId>
+	<packaging>pom</packaging>
+	
+	<name>Extensions</name>
+	<url>${base-url}/extensions</url>
+	
+	<description>Extensions to node and/or agent capabilities.</description>
+	
+	<properties>
+		<microjiac-module-category>extension</microjiac-module-category>
+	</properties>
+
+	<distributionManagement>
+		<site>
+			<id>${site-repo-id}</id>
+			<url>${base-site-url}/extensions</url>
+		</site>
+	</distributionManagement>
+
+	<modules>
+		<module>microjiac-activemq-broker</module>
+		<module>microjiac-stomp-client</module>
+		<module>microjiac-interaction</module>
+		<module>microjiac-service-engine</module>
+	</modules>
+	
+	<profiles>
+		<profile>
+			<id>__keks_broker_build__</id>
+			<activation>
+				<file>
+					<exists>microjiac-keks-broker</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>microjiac-keks-broker</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>__asgard_interface_build__</id>
+			<activation>
+				<file>
+					<exists>microjiac-asgard-interface</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>microjiac-asgard-interface</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

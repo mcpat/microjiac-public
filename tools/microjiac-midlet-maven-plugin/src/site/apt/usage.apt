@@ -1,0 +1,75 @@
+~~
+~~ MicroJIAC - A Lightweight Agent Framework
+~~ This file is part of MicroJIAC MIDlet-Maven-Plugin.
+~~
+~~ Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+~~
+~~ This library includes software developed at DAI-Labor, Technische
+~~ Universität Berlin (http://www.dai-labor.de)
+~~
+~~ This program is free software: you can redistribute it and/or modify
+~~ it under the terms of the GNU General Public License as published by
+~~ the Free Software Foundation, either version 3 of the License, or
+~~ (at your option) any later version.
+~~
+~~ This program is distributed in the hope that it will be useful,
+~~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+~~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+~~ GNU General Public License for more details.
+~~
+~~ You should have received a copy of the GNU General Public License
+~~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+~~
+
+ ------
+ Introduction
+ ------
+ Marcel Patzlaff
+ ------
+ 2010.12.13
+ ------
+
+Usage
+
+ Some short examples on how to use this plugin. In case of more complex archive configurations
+ please refer to 
+ {{{http://maven.apache.org/ref/current/maven-archiver/apidocs/org/apache/maven/archiver/MavenArchiveConfiguration.html}the Javadocs for MavenArchiveConfiguration}}.
+
+* Package your project
+
+  First of all your project have to specify 'midlet' as packaging type. Furthermore you have to configure the
+  plugin. As it defines a new packaging lifecycle, you have to set the <<<\<extensions\>>>> element of the plugin
+  to <<<true>>>. In the configuration you should define the <<<\<preverifyPath\>>>> element to point to the
+  folder of a Java Preverifier. If not specified, the ProGuard built-in Preverifier is used instead.
+  At least, you must always specify a namespace with <<<\<applicationDefinition\>>>> where a node or application
+  is configured.\
+  Here is an example <<<pom.xml>>>:
+  
++-----------------+
+<project>
+  ...
+  <packaging>midlet</packaging>
+  ...
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>de.jiac.micro.tools</groupId>
+        <artifactId>midlet-maven-plugin</artifactId>
+        ...
+        <extensions>true</extensions>
+        <configuration>
+          <obfuscate>true</obfuscate>
+          <applicationDefinition>config.demo</applicationDefinition>  <!-- config/demo.xml -->
+          <preverifyPath>${sunspot.sdk.path}/bin</preverifyPath>
+          ...
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  ...
+</project>
++-----------------+
+
+  This configuration will run genconfig -> depextract -> reflect -> depsjar
+  -> proguard -> preverify -> jad in the forked lifecycle.
+  You can disable obfuscation by setting <<<\<obfuscate\>>>> to <<<false>>>.

@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro.platforms</groupId>
+		<artifactId>microjiac-cdc-impls</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.platforms.cdc</groupId>
+	<artifactId>microjiac-cdc-launcher</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MicroJIAC CDC-Launcher</name>
+	<description>JDK1.3/CDC-based launcher for MicroJIAC</description>
+
+	<properties>
+		<microjiac-module-category>launcher</microjiac-module-category>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.jiac.micro</groupId>
+			<artifactId>microjiac-base-impl</artifactId>
+			<version>${project.version}</version>
+			<classifier>bootstrap</classifier>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

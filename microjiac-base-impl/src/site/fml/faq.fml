@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+
+    MicroJIAC - A Lightweight Agent Framework
+    This file is part of MicroJIAC Base-Implementation.
+
+    Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+
+    This library includes software developed at DAI-Labor, Technische
+    Universität Berlin (http://www.dai-labor.de)
+
+    This library is free software: you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this library.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<faqs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://maven.apache.org/maven-1.x/plugins/faq/faq.xsd" title="Frequently Asked Questions" toplink="false">
+    <part id="general">
+        <title>General</title>
+        <faq id="what">
+            <question>What is the microjiac-base-impl module for?</question>
+            <answer>
+              <p>
+				microjiac-base-impl provides all concepts of MicroJIAC with interfaces and abstract classes.
+				Agent developers should only implement against this API to ensure maximal
+				platform independence.
+              </p>
+            </answer>
+        </faq>
+        <faq id="why-classifier">
+            <question>Why are there five different classifier builds?</question>
+            <answer>
+              <p>
+                There are five classifier builds of microjiac-base-impl for different purposes:
+                <ol>
+                  <li><strong>bootstrap</strong> contains the smallest subset of microjiac-base-impl to setup a node scope</li> 
+                  <li><strong>runtime</strong> contains all platform independent classes without <strong>bootstrap</strong></li>
+                  <li><strong>stubs</strong> contains the empty stub classes for compilation</li>
+                  <li><strong>io-api</strong> contains interfaces to be used in I/O extensions</li>
+                  <li>the main artifact contains all classes without stubs</li>
+                </ol>
+              </p>
+            </answer>
+        </faq>
+    </part>
+    <part id="usage">
+        <title>Usage</title>
+        <faq id="how-use">
+            <question>How do I use the microjiac-base-impl module?</question>
+            <answer>
+              <p>
+                You can declare all classifier builds of microjiac-base-impl as dependencies
+                with scope <strong>provided</strong>. This is because the platform implementation
+                is responsible of pulling all required dependencies and thus also microjiac-base-impl.
+              </p>
+            </answer>
+        </faq>
+    </part>
+</faqs>

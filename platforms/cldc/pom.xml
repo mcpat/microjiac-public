@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac-platforms</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro.platforms.cldc</groupId>
+	<artifactId>microjiac-cldc-impls</artifactId>
+	<packaging>pom</packaging>
+
+	<name>CLDC Implementations</name>
+	<description>MicroJIAC modules for the Connected Limited Device Configuration (JDK1.3+)</description>
+	<url>${base-url}/platforms/cldc</url>
+
+	<properties>
+		<imp-stub-version>1.0</imp-stub-version>
+		<imp-stub-jar>${settings.localRepository}/com/github/mcpat/apistubs/imp-1.0-stub/${imp-stub-version}/imp-1.0-stub-${imp-stub-version}.jar</imp-stub-jar>
+		
+		<midp-stub-version>1.0</midp-stub-version>
+		<midp-stub-jar>${settings.localRepository}/com/github/mcpat/apistubs/midp-2.0-stub/${midp-stub-version}/midp-1.0-stub-${midp-stub-version}.jar</midp-stub-jar>
+		
+		<module-bootclasspath>${cldc-stub-jar}</module-bootclasspath>
+	</properties>
+	
+	<distributionManagement>
+		<site>
+			<id>${site-repo-id}</id>
+			<url>${base-site-url}/platforms/cldc</url>
+		</site>
+	</distributionManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.mcpat.apistubs</groupId>
+				<artifactId>imp-1.0-stub</artifactId>
+				<version>${imp-stub-version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.github.mcpat.apistubs</groupId>
+				<artifactId>midp-2.0-stub</artifactId>
+				<version>${midp-stub-version}</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.mcpat.apistubs</groupId>
+			<artifactId>cldc-1.1-stub</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.3</source>
+						<target>1.3</target>
+						<compilerArguments>
+							<bootclasspath>${module-bootclasspath}</bootclasspath>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<modules>
+		<module>microjiac-cldc-common</module>
+		<module>microjiac-midlet-launcher</module>
+		<module>microjiac-midlet-platform</module>
+		<module>microjiac-midp-extensions</module>
+	</modules>
+	
+	<profiles>
+		<profile>
+			<id>__sunspot_extensions_build__</id>
+			<activation>
+				<file>
+					<exists>microjiac-sunspot-extensions</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>microjiac-sunspot-extensions</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

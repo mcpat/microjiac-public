@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+
+    MicroJIAC - A Lightweight Agent Framework
+    This file is part of MicroJIAC CDC-Launcher.
+
+    Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+
+    This library includes software developed at DAI-Labor, Technische
+    Universität Berlin (http://www.dai-labor.de)
+
+    This library is free software: you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this library.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<faqs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://maven.apache.org/maven-1.x/plugins/faq/faq.xsd" title="Frequently Asked Questions" toplink="false">
+    <part id="general">
+        <title>General</title>
+        <faq id="what">
+            <question>What is the microjiac-cdc-launcher module for?</question>
+            <answer>
+              <p>
+				It is a launcher implementation for the CDC/J2SE platform and is the entry point for starting a node.
+              </p>
+            </answer>
+        </faq>
+    </part>
+    <part id="usage">
+        <title>Usage</title>
+        <faq id="how-use">
+            <question>How do I use the microjiac-cdc-launcher module?</question>
+            <answer>
+              <p>
+				This module is pulled automatically as part of a specific platform. You should never introduce a
+				launcher dependency into your project! 
+              </p>
+            </answer>
+        </faq>
+    </part>
+</faqs>

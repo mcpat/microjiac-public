@@ -1,0 +1,173 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.jiac.micro</groupId>
+		<artifactId>microjiac</artifactId>
+		<version>3.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>de.jiac.micro</groupId>
+	<artifactId>microjiac-base-impl</artifactId>
+	<packaging>jar</packaging>
+	<name>MicroJIAC Base-Implementation</name>
+
+	<description>Basic, platform-independent implementation of the MicroJIAC concepts.</description>
+
+	<properties>
+		<microjiac-module-category>api</microjiac-module-category>
+		<microjiac-base-impl-stubs>target/base-impl-stubs</microjiac-base-impl-stubs>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.mcpat.apistubs</groupId>
+			<artifactId>cldc-1.1-stub</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.libxjava</groupId>
+			<artifactId>libxjava-cldc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.slf4j</groupId>
+			<artifactId>slf4cldc-api</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<compilerArguments>
+							<bootclasspath>${cldc-stub-jar}</bootclasspath>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>**/feature/**</exclude>
+							<exclude>**/ScopeImplBinder*</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- 
+				remove stubs
+			 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>remove-stubs</id>
+						<phase>process-classes</phase>
+						<configuration>
+							<target>
+								<echo>Moving Stubs</echo>
+								<move todir="${microjiac-base-impl-stubs}">
+									<fileset dir="${project.build.outputDirectory}">
+										<include name="**/feature/**"/>
+										<include name="**/ScopeImplBinder.class"/>
+									</fileset>
+								</move>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/src/stub/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>runtime-jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>runtime</classifier>
+							<excludes>
+								<exclude>**/IContainer.class</exclude>
+								<exclude>**/IHandle.class</exclude>
+								<exclude>**/IScope.class</exclude>
+								<exclude>**/IScope$IScopeStateChangeListener.class</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>bootstrap-jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>bootstrap</classifier>
+							<includes>
+								<include>**/IContainer.class</include>
+								<include>**/IHandle.class</include>
+								<include>**/IScope.class</include>
+								<include>**/IScope$IScopeStateChangeListener.class</include>
+							</includes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>io-api-jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>io-api</classifier>
+							<includes>
+								<include>**/I*Address.class</include>
+								<include>**/IMessage*</include>
+								<include>**/IFact.class</include>
+							</includes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stubs-jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>stubs</classifier>
+							<classesDirectory>${microjiac-base-impl-stubs}</classesDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+
