@@ -85,7 +85,7 @@
 			<id>__sunspot_extensions_build__</id>
 			<activation>
 				<file>
-					<exists>microjiac-sunspot-extensions</exists>
+					<exists>${sunspot-sdk-path}</exists>
 				</file>
 			</activation>
 			<modules>
