@@ -149,6 +149,7 @@
 				<directory>${basedir}</directory>
 				<includes>
 					<include>COPYING*</include>
+					<include>NOTICE*</include>
 				</includes>
 			</resource>
 		</resources>
@@ -247,6 +248,7 @@
 							<artifactId>maven-project-info-reports-plugin</artifactId>
 							<version>2.2</version>
 						</plugin>
+						<!-- javadoc plugin + site 3.0 leaks memory until error -->
 <!--						<plugin>-->
 <!--							<groupId>org.apache.maven.plugins</groupId>-->
 <!--							<artifactId>maven-javadoc-plugin</artifactId>-->
@@ -288,11 +290,6 @@
 						</plugin>
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-jxr-plugin</artifactId>
-							<version>2.2</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-surefire-report-plugin</artifactId>
 							<version>2.6</version>
 						</plugin>
@@ -318,48 +315,6 @@
 									<tag>@deprecated</tag>
 									<tag>FIXME</tag>
 								</tags>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.fusesource.mvnplugins</groupId>
-							<artifactId>maven-graph-plugin</artifactId>
-							<version>1.11d</version>
-							<configuration>
-								<hideScopes>test</hideScopes>
-								<direction>BT</direction>
-								<keepDot>true</keepDot>
-								<colorDefinitions>
-									<colorDefinition>
-										<key>microjiac-module-category</key>
-										<value>library</value>
-										<color>#80B72D</color>
-									</colorDefinition>
-									<colorDefinition>
-										<key>microjiac-module-category</key>
-										<value>platform</value>
-										<color>#BF77EE</color>
-									</colorDefinition>
-									<colorDefinition>
-										<key>microjiac-module-category</key>
-										<value>launcher</value>
-										<color>#E4C9F4</color>
-									</colorDefinition>
-									<colorDefinition>
-										<key>microjiac-module-category</key>
-										<value>api</value>
-										<color>#DEF02C</color>
-									</colorDefinition>
-									<colorDefinition>
-										<key>microjiac-module-category</key>
-										<value>tool</value>
-										<color>#FFBD00</color>
-									</colorDefinition>
-									<colorDefinition>
-										<key>microjiac-module-category</key>
-										<value>extension</value>
-										<color>#1E90FF</color>
-									</colorDefinition>
-								</colorDefinitions>
 							</configuration>
 						</plugin>
 					</reportPlugins>
@@ -463,6 +418,68 @@
 						</configuration>
 					</plugin>
 				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>graph</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-site-plugin</artifactId>
+							<configuration>
+								<reportPlugins combine.children="append">
+									<plugin>
+										<groupId>org.fusesource.mvnplugins</groupId>
+										<artifactId>maven-graph-plugin</artifactId>
+										<version>1.11d</version>
+										<configuration>
+											<hideScopes>test</hideScopes>
+											<direction>BT</direction>
+											<keepDot>true</keepDot>
+											<colorDefinitions>
+												<colorDefinition>
+													<key>microjiac-module-category</key>
+													<value>library</value>
+													<color>#80B72D</color>
+												</colorDefinition>
+												<colorDefinition>
+													<key>microjiac-module-category</key>
+													<value>platform</value>
+													<color>#BF77EE</color>
+												</colorDefinition>
+												<colorDefinition>
+													<key>microjiac-module-category</key>
+													<value>launcher</value>
+													<color>#E4C9F4</color>
+												</colorDefinition>
+												<colorDefinition>
+													<key>microjiac-module-category</key>
+													<value>api</value>
+													<color>#DEF02C</color>
+												</colorDefinition>
+												<colorDefinition>
+													<key>microjiac-module-category</key>
+													<value>tool</value>
+													<color>#FFBD00</color>
+												</colorDefinition>
+												<colorDefinition>
+													<key>microjiac-module-category</key>
+													<value>extension</value>
+													<color>#1E90FF</color>
+												</colorDefinition>
+											</colorDefinitions>
+										</configuration>
+									</plugin>
+								</reportPlugins>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 			</build>
 		</profile>
 		<profile>

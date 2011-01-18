@@ -190,7 +190,7 @@ public class Scope implements IScope {
         return result;
     }
     
-    protected static Thread createScopeAwareThread(Scope scope, Runnable target, String name) {
+    public static Thread createScopeAwareThread(Scope scope, Runnable target, String name) {
         return ScopeImplBinder.createScopeAwareThread(scope, target, name);
     }
     

@@ -1,0 +1,5 @@
+The MicroJIAC Config module includes libraries for the Abstract Agent
+Meta-Model which is also developed at DAI-Labor, Technische
+Universität Berlin. Those libraries are not yet released under an
+open source license and should only be used in combination with
+this module.

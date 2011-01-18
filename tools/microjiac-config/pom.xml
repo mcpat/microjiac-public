@@ -15,15 +15,12 @@
 	
 	<properties>
 		<asm-version>3.1</asm-version>
+		<jaxb2-basics-version>0.6.0</jaxb2-basics-version>
+		<jaxb2-version>2.1.13</jaxb2-version>
 		<aamm-version>1.1-SNAPSHOT</aamm-version>
 	</properties>
 	
 	<dependencies>
-		<dependency>
-			<groupId>de.dailab.jiac.common</groupId>
-			<artifactId>aamm-checker</artifactId>
-			<version>${aamm-version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.mcpat.slf4j</groupId>
 			<artifactId>slf4cldc-api</artifactId>
@@ -48,6 +45,17 @@
 			<artifactId>asm-tree</artifactId>
 			<version>${asm-version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.jvnet.jaxb2_commons</groupId>
+			<artifactId>jaxb2-basics-runtime</artifactId>
+			<version>${jaxb2-basics-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>${jaxb2-version}</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -64,4 +72,90 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	
+	<!-- temporary profiles as long as AAMM is not released -->
+	<profiles>
+		<profile>
+			<id>__aamm_from_repository__</id>
+			<activation>
+				<file>
+					<missing>aamm</missing>
+				</file>
+			</activation>
+			
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>2.1</version>
+						<executions>
+							<execution>
+								<id>unpack-aamm</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.directory}/classes</outputDirectory>
+									<artifactItems>
+										<artifactItem>
+											<groupId>de.dailab.jiac.common</groupId>
+											<artifactId>aamm-checker</artifactId>
+											<version>${aamm-version}</version>
+										</artifactItem>
+										<artifactItem>
+											<groupId>de.dailab.jiac.common</groupId>
+											<artifactId>AAMM</artifactId>
+											<version>${aamm-version}</version>
+										</artifactItem>
+									</artifactItems>
+									<excludes>META-INF/**</excludes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>__aamm_from_folder__</id>
+			<activation>
+				<file>
+					<exists>aamm</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>unpack-aamm</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<unjar dest="${project.build.directory}/classes">
+											<patternset>
+												<exclude name="META-INF/**"/>
+											</patternset>
+											<fileset dir="${project.basedir}/aamm">
+												<include name="*.jar"/>
+											</fileset>
+										</unjar>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
