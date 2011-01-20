@@ -42,17 +42,17 @@
 				<module>realtime</module>
 			</modules>
 		</profile>
-		<profile>
-			<id>__android_build__</id>
-			<activation>
-				<file>
-					<exists>android</exists>
-				</file>
-			</activation>
-			<modules>
-				<module>android</module>
-			</modules>
-		</profile>
+<!--		<profile>-->
+<!--			<id>__android_build__</id>-->
+<!--			<activation>-->
+<!--				<file>-->
+<!--					<exists>android</exists>-->
+<!--				</file>-->
+<!--			</activation>-->
+<!--			<modules>-->
+<!--				<module>android</module>-->
+<!--			</modules>-->
+<!--		</profile>-->
 		<profile>
 			<id>__osgi_build__</id>
 			<activation>
