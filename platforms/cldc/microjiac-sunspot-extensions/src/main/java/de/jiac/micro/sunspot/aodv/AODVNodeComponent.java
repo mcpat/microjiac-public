@@ -34,7 +34,6 @@ import org.slf4j.Logger;
 
 import com.github.libxjava.io.BinaryDeserialiserStream;
 import com.github.libxjava.io.BinarySerialiserStream;
-import com.github.libxjava.lang.IClassLoader;
 import com.sun.spot.peripheral.radio.LowPan;
 import com.sun.spot.peripheral.radio.RadioFactory;
 import com.sun.spot.peripheral.radio.mhrp.aodv.AODVManager;
@@ -143,7 +142,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         nodeAddress= RadioFactory.getRadioPolicyManager().getIEEEAddress();
         
         _messageInput= new MessageInputStream(_protocol);
-        _deserialiser= new BinaryDeserialiserStream((IClassLoader) NodeScope.getNodeReference().getHandle(IClassLoader.class), _messageInput);
+        _deserialiser= new BinaryDeserialiserStream(NodeScope.getNodeReference().getClassLoader(), _messageInput);
         
         LowPan.getInstance().setRoutingManager(AODVManager.getInstance());
         LowPan.getInstance().registerProtocol(ProtocolManager.PROTOCOL_NUM, _protocol);
