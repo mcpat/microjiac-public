@@ -20,5 +20,9 @@
 			<version>3.0-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.mcpat.libxjava</groupId>
+			<artifactId>libxjava-cldc</artifactId>
+		</dependency>
 	</dependencies>
 </project>	

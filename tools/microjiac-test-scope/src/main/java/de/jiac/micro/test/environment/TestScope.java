@@ -21,33 +21,33 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
-* $Id$
-*/ 
 package de.jiac.micro.test.environment;
 
+import de.jiac.micro.core.IContainer;
 import de.jiac.micro.core.IHandle;
 import de.jiac.micro.core.LifecycleHandler.SimpleLifecycleContext;
 import de.jiac.micro.core.scope.Scope;
+import de.jiac.micro.internal.core.DummyContainer;
 
 /** 
- * Vladimir Sch&ouml;ner
- * $Revision:$
- *
+ * @author Vladimir Sch&ouml;ner
+ * @author Marcel Patzlaff
  */
 public class TestScope extends Scope {
 	public TestScope(String runnerName) {
 		super(runnerName, Object.class);
+
+		DummyContainer container= new DummyContainer(runnerName);
+		SimpleLifecycleContext context= new SimpleLifecycleContext(container);
+		getScopeMemory().setReference(context);
 	}
 	
     public static Thread createScopeAwareTestThread(Runnable target, IHandle[] scopeHandles) {
     	String runnerName= target + String.valueOf(System.currentTimeMillis());
     	TestScope scope= new TestScope(runnerName);
-    	DummyContainer container= new DummyContainer(runnerName);
-    	SimpleLifecycleContext context= new SimpleLifecycleContext(container);
-    	scope.getScopeMemory().setReference(context);
     	
     	if(scopeHandles != null && scopeHandles.length > 0) {
+    	    IContainer container= scope.getContainerReference();
     	    for(int i= 0; i < scopeHandles.length; ++i) {
     	        container.addHandle(scopeHandles[i]);
     	    }

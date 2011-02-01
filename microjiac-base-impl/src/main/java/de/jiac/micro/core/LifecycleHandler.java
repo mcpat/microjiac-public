@@ -95,7 +95,7 @@ public final class LifecycleHandler {
                         case LifecycleState.CONSTRUCTED: {
                             if (down) {
                                 if(debug) {
-                                    logger.debug("cleaning up" + la);
+                                    logger.debug("cleaning up " + la);
                                 }
                                 la.cleanup();
                             }
@@ -106,12 +106,12 @@ public final class LifecycleHandler {
                         case LifecycleState.INITIALISED: {
                             if (down) {
                                 if(debug) {
-                                    logger.debug("stopping" + la);
+                                    logger.debug("stopping " + la);
                                 }
                                 la.stop();
                             } else {
                                 if(debug) {
-                                    logger.debug("initialising" + la);
+                                    logger.debug("initialising " + la);
                                 }
                                 la.initialise();
                             }
@@ -122,7 +122,7 @@ public final class LifecycleHandler {
                         case LifecycleState.ACTIVE: {
                             if (!down) {
                                 if(debug) {
-                                    logger.debug("starting" + la);
+                                    logger.debug("starting " + la);
                                 }
                                 la.start();
                             }

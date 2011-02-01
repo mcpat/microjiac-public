@@ -24,11 +24,11 @@
 /*
  * $Id$ 
  */
-package de.jiac.micro.test.environment;
+package de.jiac.micro.internal.core;
+
+import com.github.libxjava.lang.SimpleClassLoader;
 
 import de.jiac.micro.core.IContainer;
-import de.jiac.micro.internal.core.AbstractContainer;
-import de.jiac.micro.internal.core.AbstractContainerConfiguration;
 
 /**
  * @author Marcel Patzlaff
@@ -43,6 +43,8 @@ public class DummyContainer extends AbstractContainer {
                 }
             }
         );
+        
+        setClassLoader(new SimpleClassLoader());
     }
     
     public void cleanup() {}

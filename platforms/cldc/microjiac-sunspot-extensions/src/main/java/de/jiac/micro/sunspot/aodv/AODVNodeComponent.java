@@ -37,6 +37,7 @@ import com.github.libxjava.io.BinarySerialiserStream;
 import com.sun.spot.peripheral.radio.LowPan;
 import com.sun.spot.peripheral.radio.RadioFactory;
 import com.sun.spot.peripheral.radio.mhrp.aodv.AODVManager;
+import com.sun.spot.util.IEEEAddress;
 
 import de.jiac.micro.agent.handle.ICommunicationHandle;
 import de.jiac.micro.core.IAgent;
@@ -47,7 +48,7 @@ import de.jiac.micro.core.io.IMulticastAddress;
 import de.jiac.micro.core.io.IUnicastAddress;
 import de.jiac.micro.core.scope.AbstractScopeAwareRunner;
 import de.jiac.micro.core.scope.AgentScope;
-import de.jiac.micro.core.scope.NodeScope;
+import de.jiac.micro.core.scope.Scope;
 import de.jiac.micro.internal.core.AbstractNodeComponent;
 import de.jiac.micro.internal.io.Message;
 import de.jiac.micro.util.List;
@@ -58,19 +59,23 @@ import de.jiac.micro.util.List.Node;
  * @version $Revision:$
  */
 public class AODVNodeComponent extends AbstractNodeComponent implements IHandle {
-    protected static String getAgentKey() {
+    private static String getAgentKey() {
         return String.valueOf(AgentScope.getAgentScope().hashCode());
     }
     
     private final class AODVCommunicator implements ICommunicationHandle {
-        protected AODVCommunicator() {}
+        private final String _selector;
+        
+        protected AODVCommunicator(String selector) {
+            _selector= selector;
+        }
         
         public IMessage createMessage() {
             return new Message();
         }
 
         public IUnicastAddress[] getLocalAddresses() {
-            return new IUnicastAddress[] {Address.createUnicastAddress(nodeAddress, getAgentKey())};
+            return new IUnicastAddress[] {Address.createUnicastAddress(nodeAddress, _selector)};
         }
         
         public IMulticastAddress getMulticastAddressForName(String groupName) {
@@ -82,15 +87,15 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         }
 
         public void joinGroup(IMulticastAddress address) {
-            changeGroupAssociation((Address) address, true);
+            changeGroupAssociation(_selector, (Address) address, true);
         }
         
         public void leaveGroup(IMulticastAddress address) {
-            changeGroupAssociation((Address) address, false);
+            changeGroupAssociation(_selector, (Address) address, false);
         }
         
         public void sendMessage(IAddress address, IMessage message) throws IOException {
-            internalSendMessage((Address) address, (Message) message);
+            internalSendMessage(_selector, (Address) address, (Message) message);
         }
     }
     
@@ -108,7 +113,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
     
     protected long nodeAddress;
     
-    private final Hashtable _agents;
+    private final Hashtable _listeners;
     private final Hashtable _groups;
     private final MessageProcessor _processor;
     
@@ -121,7 +126,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
     
     
     public AODVNodeComponent() {
-        _agents= new Hashtable();
+        _listeners= new Hashtable();
         _groups= new Hashtable();
         _processor= new MessageProcessor();
     }
@@ -130,6 +135,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         _processor.stop();
         _protocol.stop();
         LowPan.getInstance().deregisterProtocol(ProtocolManager.PROTOCOL_NUM);
+        RadioFactory.getRadioPolicyManager().setRxOn(false);
         super.cleanup();
     }
 
@@ -140,9 +146,11 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         _serialiser= new BinarySerialiserStream(_messageOutput);
         
         nodeAddress= RadioFactory.getRadioPolicyManager().getIEEEAddress();
+        RadioFactory.setProperty("IEEE_ADDRESS", new IEEEAddress(nodeAddress).asDottedHex());
+        RadioFactory.getRadioPolicyManager().setRxOn(true);
         
         _messageInput= new MessageInputStream(_protocol);
-        _deserialiser= new BinaryDeserialiserStream(NodeScope.getNodeReference().getClassLoader(), _messageInput);
+        _deserialiser= new BinaryDeserialiserStream(Scope.getContainer().getClassLoader(), _messageInput);
         
         LowPan.getInstance().setRoutingManager(AODVManager.getInstance());
         LowPan.getInstance().registerProtocol(ProtocolManager.PROTOCOL_NUM, _protocol);
@@ -151,30 +159,27 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
     }
     
     public void register(IMessageListener listener) {
-        synchronized (_agents) {
-            IMessageListener oldListener= (IMessageListener) _agents.put(getAgentKey(), listener);
+        AODVCommunicator comm= register(getAgentKey(), listener);
+        if(comm != null) {
+            AgentScope.getAgentReference().addHandle(comm);
+        }
+    }
+    
+    protected AODVCommunicator register(String key, IMessageListener listener) {
+        synchronized (_listeners) {
+            IMessageListener oldListener= (IMessageListener) _listeners.put(key, listener);
             if(oldListener != null && oldListener != listener) {
                 throw new Error("implementation error");
             } else if(oldListener == null) {
-                AgentScope.getAgentReference().addHandle(new AODVCommunicator());
+                return new AODVCommunicator(key);
             }
+            
+            return null;
         }
     }
     
     public void unregister(IMessageListener listener) {
-        synchronized (_agents) {
-            final String key= getAgentKey();
-            IMessageListener oldListener= (IMessageListener) _agents.get(key);
-            if(oldListener != listener) {
-                throw new Error("implementation error");
-            }
-            
-            for(Enumeration addresses= _groups.keys(); addresses.hasMoreElements();) {
-                Address group= (Address) addresses.nextElement();
-                changeGroupAssociation(group, false);
-            }
-            
-            _agents.remove(key);
+        if(unregister(getAgentKey(), listener)) {
             IAgent agentRef= AgentScope.getAgentReference();
             IHandle commHandle= agentRef.getHandle(AODVCommunicator.class);
             if(commHandle != null) {
@@ -182,10 +187,27 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
             }
         }
     }
+    
+    protected boolean unregister(String selector, IMessageListener listener) {
+        synchronized (_listeners) {
+            IMessageListener oldListener= (IMessageListener) _listeners.get(selector);
+            if(oldListener != listener) {
+                throw new Error("implementation error");
+            }
+            
+            for(Enumeration addresses= _groups.keys(); addresses.hasMoreElements();) {
+                Address group= (Address) addresses.nextElement();
+                changeGroupAssociation(selector, group, false);
+            }
+            
+            _listeners.remove(selector);
+            return true;
+        }
+    }
 
     protected void internalProcessMessage() {
         synchronized (_deserialiser) {
-            final Logger logger= NodeScope.getNodeReference().getLogger("AODV");
+            final Logger logger= Scope.getContainer().getLogger("AODV");
             
             logger.info("try to read message... ");
             MessageID mid= _protocol.nextAvailableMessage();
@@ -199,11 +221,11 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
                 String targetStr= message.getHeader(IMessage.DefaultHeader.TARGET_ADDRESS);
                 Address targetAddress= Address.parseAddress(targetStr);
                 
-                synchronized (_agents) {
+                synchronized (_listeners) {
                     switch(targetAddress.getType()) {
                         case IAddress.UNICAST: {
                             String agentName= targetAddress.getSelector();
-                            IMessageListener agent= (IMessageListener)  _agents.get(agentName);
+                            IMessageListener agent= (IMessageListener)  _listeners.get(agentName);
                             if(agent == null) {
                                 logger.warn("MessageLayer: received message for unknown agent '" + targetStr + "'");
                             } else {
@@ -221,7 +243,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
                                 for(Node n= members.head(), end= members.tail(); (n= n.next()) != end;) {
                                     // performance leak for larger groups -> run in parallel!
                                     String agentKey= (String) n.value();
-                                    IMessageListener agent= (IMessageListener) _agents.get(agentKey);
+                                    IMessageListener agent= (IMessageListener) _listeners.get(agentKey);
                                     
                                     // FIXME: message is shared
                                     agent.processMessage(message);
@@ -245,10 +267,9 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         scope.getContainerReference().addHandle(this);
     }
 
-    protected void changeGroupAssociation(Address group, boolean join) {
-        synchronized (_agents) {
-            final String key= getAgentKey();
-            IMessageListener listener= (IMessageListener) _agents.get(key);
+    protected void changeGroupAssociation(String selector, Address group, boolean join) {
+        synchronized (_listeners) {
+            IMessageListener listener= (IMessageListener) _listeners.get(selector);
             
             if(listener == null) {
                 throw new Error("implementation error");
@@ -262,11 +283,11 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
                     _groups.put(group, groupMembers);
                 }
                 
-                if(!groupMembers.contains(key)) {
-                    groupMembers.addLast(key);
+                if(!groupMembers.contains(selector)) {
+                    groupMembers.addLast(selector);
                 }
             } else if(groupMembers != null) {
-                groupMembers.remove(key);
+                groupMembers.remove(selector);
                 
                 if(groupMembers.size() <= 0) {
                     _groups.remove(group);
@@ -275,10 +296,8 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         }
     }
     
-    protected void internalSendMessage(Address target, Message message) throws IOException {
-        final String key= getAgentKey();
-        
-        IUnicastAddress sourceAddress= Address.createUnicastAddress(nodeAddress, key);
+    protected void internalSendMessage(String selector, Address target, Message message) throws IOException {
+        IUnicastAddress sourceAddress= Address.createUnicastAddress(nodeAddress, selector);
         message.setHeader(IMessage.DefaultHeader.SOURCE_ADDRESS, sourceAddress.toString());
         message.setHeader(IMessage.DefaultHeader.TARGET_ADDRESS, target.toString());
         
@@ -310,6 +329,10 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
                 _protocol.clearOutgoing(mid);
             }
         }
+    }
+    
+    protected IHandle getNodeHandle() {
+        return this;
     }
 
     protected void removeHandlesFrom(AgentScope scope) {

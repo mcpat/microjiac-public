@@ -26,17 +26,11 @@
  */
 package de.jiac.micro.sunspot.aodv;
 
-import com.github.libxjava.io.BinaryDeserialiserStream;
-import com.github.libxjava.io.ByteArrayInputBuffer;
-import com.sun.spot.peripheral.radio.RadioFactory;
-import com.sun.spot.util.IEEEAddress;
-
 import de.jiac.micro.agent.ISensor;
 import de.jiac.micro.agent.memory.IShortTermMemory;
 import de.jiac.micro.core.ILifecycleAware;
 import de.jiac.micro.core.io.IMessage;
 import de.jiac.micro.core.scope.AgentScope;
-import de.jiac.micro.core.scope.Scope;
 
 /**
  * @author Marcel Patzlaff
@@ -44,9 +38,6 @@ import de.jiac.micro.core.scope.Scope;
  */
 public class AODVAgentElement implements ISensor, ILifecycleAware, IMessageListener {
     private IShortTermMemory _stm;
-    
-    private BinaryDeserialiserStream _deserialiser;
-    private ByteArrayInputBuffer _byteInput;
     
     public void setShortTermMemory(IShortTermMemory stm) {
         _stm= stm;
@@ -59,17 +50,9 @@ public class AODVAgentElement implements ISensor, ILifecycleAware, IMessageListe
     public void cleanup() {
         AODVNodeComponent aodv= (AODVNodeComponent) AgentScope.getAgentHandle(AODVNodeComponent.class);
         aodv.unregister(this);
-        
-        _deserialiser= null;
-        _byteInput= null;
     }
 
     public void initialise() {
-        RadioFactory.setProperty("IEEE_ADDRESS", new IEEEAddress(RadioFactory.getRadioPolicyManager().getIEEEAddress()).asDottedHex());
-        RadioFactory.getRadioPolicyManager().setRxOn(true);
-        _byteInput= new ByteArrayInputBuffer();
-        _deserialiser= new BinaryDeserialiserStream(Scope.getContainer().getClassLoader(), _byteInput);
-        
         AODVNodeComponent aodv= (AODVNodeComponent) AgentScope.getAgentHandle(AODVNodeComponent.class);
         aodv.register(this);
     }

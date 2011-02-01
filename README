@@ -1,12 +1,13 @@
-MicroJIAC - A Lightweight Agent Framework
+MicroJIAC - A Lightweight Agent Framework (Version 3.0)
 
------------------------------------------
+-------------------------------------------------------
 README - Contents
------------------------------------------
+-------------------------------------------------------
 1. Meaning of "MicroJIAC"
-2. Deploying MicroJIAC
-3. Building SunSPOT-related modules
------------------------------------------
+2. Features of MicroJIAC
+3. Deploying MicroJIAC
+4. Building SunSPOT-related modules
+-------------------------------------------------------
 
 
 1. Meaning of "MicroJIAC"
@@ -14,19 +15,24 @@ README - Contents
 
 "Micro" is supposed to mean small, lightweight and is similiar to the
 meaning in "Java Microedition".
-"JIAC" initially meant "Java Intelligent Agent Componentware". As the
-agent models and structures of the JIAC framework and MicroJIAC
-diverge heavily, a better translation of "JIAC" would be
-"JIAC Incompatible Agent Componentware". The interoperability of both
-frameworks is given through the communication.
+"JIAC" is a collective name and stands for "Java-based Intelligent Agent
+Componentware".
 
 For more information see:
 	o http://www.jiac.de
 	o http://www.dai-labor.de
 
 
+1. Features of MicroJIAC
+========================
+* low memory footprint
+* allows implementation of scalable and device independent agents
+* support for several Java environments
+* great extensibility
+* provides build and deployment utilities
 
-2. Deploying MicroJIAC
+
+3. Deploying MicroJIAC
 ======================
 
 The deployment of MicroJIAC requires specific variables to be
@@ -60,7 +66,7 @@ Deploying the site require two more variables:
 
 
 
-3. Building SunSPOT-related modules
+4. Building SunSPOT-related modules
 ===================================
 
 To build all SunSPOT related modules (like the microjiac-sunspot-extensions)
