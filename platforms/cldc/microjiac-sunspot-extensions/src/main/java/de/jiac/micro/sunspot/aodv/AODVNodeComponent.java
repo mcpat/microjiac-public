@@ -34,6 +34,8 @@ import org.slf4j.Logger;
 
 import com.github.libxjava.io.BinaryDeserialiserStream;
 import com.github.libxjava.io.BinarySerialiserStream;
+import com.github.libxjava.io.ReferenceCache;
+import com.github.libxjava.lang.IClassLoader;
 import com.sun.spot.peripheral.radio.LowPan;
 import com.sun.spot.peripheral.radio.RadioFactory;
 import com.sun.spot.peripheral.radio.mhrp.aodv.AODVManager;
@@ -124,6 +126,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
     private MessageInputStream _messageInput;
     private ProtocolManager _protocol;
     
+    private ReferenceCache _cache= null;
     
     public AODVNodeComponent() {
         _listeners= new Hashtable();
@@ -143,14 +146,15 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
     	super.initialise();
     	_protocol= new ProtocolManager(LowPan.getInstance());
         _messageOutput= new MessageOutputStream(_protocol);
-        _serialiser= new BinarySerialiserStream(_messageOutput);
+        _serialiser= _cache != null ? _cache.createSerialiser(_messageOutput) : new BinarySerialiserStream(_messageOutput);
         
         nodeAddress= RadioFactory.getRadioPolicyManager().getIEEEAddress();
         RadioFactory.setProperty("IEEE_ADDRESS", new IEEEAddress(nodeAddress).asDottedHex());
         RadioFactory.getRadioPolicyManager().setRxOn(true);
         
         _messageInput= new MessageInputStream(_protocol);
-        _deserialiser= new BinaryDeserialiserStream(Scope.getContainer().getClassLoader(), _messageInput);
+        IClassLoader cl= Scope.getContainer().getClassLoader();
+        _deserialiser= _cache != null ? _cache.createDeserialiser(cl, _messageInput) : new BinaryDeserialiserStream(cl, _messageInput);
         
         LowPan.getInstance().setRoutingManager(AODVManager.getInstance());
         LowPan.getInstance().registerProtocol(ProtocolManager.PROTOCOL_NUM, _protocol);
@@ -163,6 +167,10 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         if(comm != null) {
             AgentScope.getAgentReference().addHandle(comm);
         }
+    }
+    
+    public void setReferenceCache(ReferenceCache cache) {
+        _cache= cache;
     }
     
     protected AODVCommunicator register(String key, IMessageListener listener) {
