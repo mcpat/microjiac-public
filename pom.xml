@@ -171,6 +171,9 @@
 					<version>2.3.1</version>
 					<configuration>
 						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
 							<manifestEntries>
 								<MicroJIAC-Module-Category>${microjiac-module-category}</MicroJIAC-Module-Category>
 								<MicroJIAC-Module-Archive>${project.build.finalName}.${project.packaging}</MicroJIAC-Module-Archive>

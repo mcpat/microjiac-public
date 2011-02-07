@@ -47,6 +47,7 @@ import de.jiac.micro.util.FileNameUtil;
  * is expected to be present.
  * 
  * @goal preverify
+ * @requiresDependencyResolution compile
  * @description Preverification of the classes (for IMP/MIDP usage)
  * 
  * @author Marcel Patzlaff
