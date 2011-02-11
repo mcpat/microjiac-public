@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.jiac.micro</groupId>
 		<artifactId>microjiac-platforms</artifactId>
-		<version>3.0-SNAPSHOT</version>
+		<version>3.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>de.jiac.micro.platforms</groupId>

@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.jiac.micro</groupId>
 		<artifactId>microjiac</artifactId>
-		<version>3.0-SNAPSHOT</version>
+		<version>3.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>de.jiac.micro</groupId>
@@ -74,8 +74,8 @@
 								<echo>Moving Stubs</echo>
 								<move todir="${microjiac-base-impl-stubs}">
 									<fileset dir="${project.build.outputDirectory}">
-										<include name="**/feature/**"/>
-										<include name="**/ScopeImplBinder.class"/>
+										<include name="**/feature/**" />
+										<include name="**/ScopeImplBinder.class" />
 									</fileset>
 								</move>
 							</target>

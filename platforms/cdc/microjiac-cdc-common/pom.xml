@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.jiac.micro.platforms</groupId>
 		<artifactId>microjiac-cdc-impls</artifactId>
-		<version>3.0-SNAPSHOT</version>
+		<version>3.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>de.jiac.micro.platforms.cdc</groupId>
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>de.jiac.micro.platforms.cldc</groupId>
 			<artifactId>microjiac-cldc-common</artifactId>
-			<version>3.0-SNAPSHOT</version>
+			<version>3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.mcpat.slf4j</groupId>

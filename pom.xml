@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.jiac.micro</groupId>
 	<artifactId>microjiac</artifactId>
-	<version>3.0-SNAPSHOT</version>
+	<version>3.0</version>
 	<packaging>pom</packaging>
 
 	<name>MicroJIAC</name>
@@ -21,10 +21,10 @@
 		<base-url>http://repositories.dai-labor.de/sites/microjiac/3.0-SNAPSHOT</base-url>
 		<base-site-url>${site-repo-url}/microjiac/3.0-SNAPSHOT</base-site-url>
 	
-		<keks-version>1.2.0-SNAPSHOT</keks-version>
+		<keks-version>1.2.0</keks-version>
 	
 		<slf4j-version>1.6.0</slf4j-version>
-		<libxjava-version>0.3-SNAPSHOT</libxjava-version>
+		<libxjava-version>0.3</libxjava-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
@@ -68,7 +68,7 @@
 		</developer>
 		<developer>
 			<id>schoener</id>
-			<name>Vladimir Sch&#x00F6;ner</name>
+			<name>Vladimir Schöner</name>
 			<email>vladimir.schoener@dai-labor.de</email>
 			<roles>
 				<role>Developer</role>
@@ -203,8 +203,22 @@
 					<artifactId>cobertura-maven-plugin</artifactId>
 					<version>2.4</version>
 				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.1</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-7</version>
+			</extension>
+		</extensions>
 
 		<plugins>
 			<plugin>

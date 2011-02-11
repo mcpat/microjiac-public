@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.jiac.micro</groupId>
 		<artifactId>microjiac-tools</artifactId>
-		<version>3.0-SNAPSHOT</version>
+		<version>3.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>de.jiac.micro.tools</groupId>
@@ -143,10 +143,10 @@
 									<target>
 										<unjar dest="${project.build.directory}/classes">
 											<patternset>
-												<exclude name="META-INF/**"/>
+												<exclude name="META-INF/**" />
 											</patternset>
 											<fileset dir="${project.basedir}/aamm">
-												<include name="*.jar"/>
+												<include name="*.jar" />
 											</fileset>
 										</unjar>
 									</target>

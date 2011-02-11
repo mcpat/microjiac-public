@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.jiac.micro.platforms</groupId>
 		<artifactId>microjiac-java6-impls</artifactId>
-		<version>3.0-SNAPSHOT</version>
+		<version>3.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>de.jiac.micro.platforms.java6</groupId>
