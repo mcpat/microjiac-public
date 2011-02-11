@@ -30,7 +30,8 @@
 		<module>microjiac-activemq-broker</module>
 		<module>microjiac-stomp-client</module>
 		<module>microjiac-interaction</module>
-		<module>microjiac-service-engine</module>
+		<module>microjiac-emulated-service-engine</module>
+		<module>microjiac-reflective-service-engine</module>
 	</modules>
 	
 	<profiles>

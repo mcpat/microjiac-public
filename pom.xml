@@ -18,8 +18,8 @@
 	</prerequisites>
 
 	<properties>
-		<base-url>http://repositories.dai-labor.de/sites/microjiac/3.0-SNAPSHOT</base-url>
-		<base-site-url>${site-repo-url}/microjiac/3.0-SNAPSHOT</base-site-url>
+		<base-url>http://repositories.dai-labor.de/sites/microjiac/3.0</base-url>
+		<base-site-url>${site-repo-url}/microjiac/3.0</base-site-url>
 	
 		<keks-version>1.2.0</keks-version>
 	
@@ -387,9 +387,9 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:git:ssh://cvs.dai-labor.de/home/local/git/microJIAC.git</connection>
-		<developerConnection>scm:git:ssh://cvs.dai-labor.de/home/local/git/microJIAC.git</developerConnection>
-		<url>scm:git:ssh://cvs.dai-labor.de/home/local/git/microJIAC.git</url>
+		<connection>scm:git:git://github.com/mcpat/microjiac-public.git</connection>
+		<developerConnection>scm:git:git://github.com/mcpat/microjiac-public.git</developerConnection>
+		<url>git://github.com/mcpat/microjiac-public.git</url>
 	</scm>
 	
 	<distributionManagement>
