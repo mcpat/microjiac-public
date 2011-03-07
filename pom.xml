@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.jiac.micro</groupId>
 	<artifactId>microjiac</artifactId>
-	<version>3.0</version>
+	<version>3.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>MicroJIAC</name>
@@ -18,13 +18,13 @@
 	</prerequisites>
 
 	<properties>
-		<base-url>http://repositories.dai-labor.de/sites/microjiac/3.0</base-url>
-		<base-site-url>${site-repo-url}/microjiac/3.0</base-site-url>
+		<base-url>http://repositories.dai-labor.de/sites/microjiac/3.1-SNAPSHOT</base-url>
+		<base-site-url>${site-repo-url}/microjiac/3.1-SNAPSHOT</base-site-url>
 	
 		<keks-version>1.2.0</keks-version>
 	
 		<slf4j-version>1.6.0</slf4j-version>
-		<libxjava-version>0.3</libxjava-version>
+		<libxjava-version>0.4-SNAPSHOT</libxjava-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		

@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.jiac.micro</groupId>
 		<artifactId>microjiac-tools</artifactId>
-		<version>3.0</version>
+		<version>3.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>de.jiac.micro.tools</groupId>
@@ -40,7 +40,7 @@
 		<dependency>
 			<groupId>de.jiac.micro.tools</groupId>
 			<artifactId>microjiac-config</artifactId>
-			<version>3.0</version>
+			<version>3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
