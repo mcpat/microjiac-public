@@ -61,14 +61,10 @@ import de.jiac.micro.util.List.Node;
  * @version $Revision:$
  */
 public class AODVNodeComponent extends AbstractNodeComponent implements IHandle {
-    private static String getAgentKey() {
-        return String.valueOf(AgentScope.getAgentScope().hashCode());
-    }
-    
     private final class AODVCommunicator implements ICommunicationHandle {
-        private final String _selector;
+        private final Integer _selector;
         
-        protected AODVCommunicator(String selector) {
+        protected AODVCommunicator(Integer selector) {
             _selector= selector;
         }
         
@@ -77,7 +73,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         }
 
         public IUnicastAddress[] getLocalAddresses() {
-            return new IUnicastAddress[] {Address.createUnicastAddress(nodeAddress, _selector)};
+            return new IUnicastAddress[] {Address.createUnicastAddress(nodeAddress, _selector.intValue())};
         }
         
         public IMulticastAddress getMulticastAddressForName(String groupName) {
@@ -113,7 +109,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         }
     }
     
-    protected long nodeAddress;
+    protected int nodeAddress;
     
     private final Hashtable _listeners;
     private final Hashtable _groups;
@@ -148,7 +144,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         _messageOutput= new MessageOutputStream(_protocol);
         _serialiser= _cache != null ? _cache.createSerialiser(_messageOutput) : new BinarySerialiserStream(_messageOutput);
         
-        nodeAddress= RadioFactory.getRadioPolicyManager().getIEEEAddress();
+        nodeAddress= (int) (RadioFactory.getRadioPolicyManager().getIEEEAddress() & 0xFFFF);
         RadioFactory.setProperty("IEEE_ADDRESS", new IEEEAddress(nodeAddress).asDottedHex());
         RadioFactory.getRadioPolicyManager().setRxOn(true);
         
@@ -163,7 +159,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
     }
     
     public void register(IMessageListener listener) {
-        AODVCommunicator comm= register(getAgentKey(), listener);
+        AODVCommunicator comm= register(AODVAgentIdGenerator.getAgentId(), listener);
         if(comm != null) {
             AgentScope.getAgentReference().addHandle(comm);
         }
@@ -173,7 +169,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         _cache= cache;
     }
     
-    protected AODVCommunicator register(String key, IMessageListener listener) {
+    protected AODVCommunicator register(Integer key, IMessageListener listener) {
         synchronized (_listeners) {
             IMessageListener oldListener= (IMessageListener) _listeners.put(key, listener);
             if(oldListener != null && oldListener != listener) {
@@ -187,7 +183,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
     }
     
     public void unregister(IMessageListener listener) {
-        if(unregister(getAgentKey(), listener)) {
+        if(unregister(AODVAgentIdGenerator.getAgentId(), listener)) {
             IAgent agentRef= AgentScope.getAgentReference();
             IHandle commHandle= agentRef.getHandle(AODVCommunicator.class);
             if(commHandle != null) {
@@ -196,7 +192,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         }
     }
     
-    protected boolean unregister(String selector, IMessageListener listener) {
+    protected boolean unregister(Integer selector, IMessageListener listener) {
         synchronized (_listeners) {
             IMessageListener oldListener= (IMessageListener) _listeners.get(selector);
             if(oldListener != listener) {
@@ -232,8 +228,8 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
                 synchronized (_listeners) {
                     switch(targetAddress.getType()) {
                         case IAddress.UNICAST: {
-                            String agentName= targetAddress.getSelector();
-                            IMessageListener agent= (IMessageListener)  _listeners.get(agentName);
+                            Integer agentId= targetAddress.getSelectorAsInteger();
+                            IMessageListener agent= (IMessageListener)  _listeners.get(agentId);
                             if(agent == null) {
                                 logger.warn("MessageLayer: received message for unknown agent '" + targetStr + "'");
                             } else {
@@ -275,7 +271,7 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         scope.getContainerReference().addHandle(this);
     }
 
-    protected void changeGroupAssociation(String selector, Address group, boolean join) {
+    protected void changeGroupAssociation(Integer selector, Address group, boolean join) {
         synchronized (_listeners) {
             IMessageListener listener= (IMessageListener) _listeners.get(selector);
             
@@ -304,8 +300,8 @@ public class AODVNodeComponent extends AbstractNodeComponent implements IHandle 
         }
     }
     
-    protected void internalSendMessage(String selector, Address target, Message message) throws IOException {
-        IUnicastAddress sourceAddress= Address.createUnicastAddress(nodeAddress, selector);
+    protected void internalSendMessage(Integer selector, Address target, Message message) throws IOException {
+        IUnicastAddress sourceAddress= Address.createUnicastAddress(nodeAddress, selector.intValue());
         message.setHeader(IMessage.DefaultHeader.SOURCE_ADDRESS, sourceAddress.toString());
         message.setHeader(IMessage.DefaultHeader.TARGET_ADDRESS, target.toString());
         

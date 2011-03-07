@@ -47,7 +47,7 @@ import de.jiac.micro.core.scope.AbstractScopeAwareRunner;
  */
 public class DiscoveryProtocolManager implements IProtocolManager {
     public interface IDiscoveryListener {
-        void notifyDiscovered(long address, String identification, int signalStrength);
+        void notifyDiscovered(int address, String identification, int signalStrength);
     }
     
     public final static byte PROTOCOL_NUM= (byte) 223;
@@ -130,7 +130,7 @@ public class DiscoveryProtocolManager implements IProtocolManager {
                     _idBuffer.append((char) (incoming.payload[i] & 0xFF));
                 }
                 
-                _listener.notifyDiscovered(incoming.headerInfo.originator, _idBuffer.toString(), incoming.headerInfo.rssi);
+                _listener.notifyDiscovered((int) (incoming.headerInfo.originator & 0xFFFF), _idBuffer.toString(), incoming.headerInfo.rssi);
             } finally {
                 _readBuffer.setInput(oldBuf);
                 _idBuffer.setLength(0);

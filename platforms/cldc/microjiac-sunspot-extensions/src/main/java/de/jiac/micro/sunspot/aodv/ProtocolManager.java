@@ -131,10 +131,10 @@ final class ProtocolManager implements IProtocolManager {
         }
     }
     
-    public MessageID newOutgoingMessageID(long targetAddress, boolean broadcast) {
+    public MessageID newOutgoingMessageID(int targetAddress, boolean broadcast) {
         MessageID mid= new MessageID();
         MessageState ms= new MessageState(mid);
-        ms.targetAddress= targetAddress;
+        ms.targetAddress= targetAddress | 0x144F0100000000L;
         ms.broadcast= broadcast;
         
         _outgoingMessageStates.put(mid, ms);

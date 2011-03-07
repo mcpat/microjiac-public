@@ -21,27 +21,49 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
-* $Id$
-*/ 
 package de.jiac.micro.sunspot.aodv;
+
+import com.github.libxjava.io.Base64;
 
 import de.jiac.micro.core.io.IMulticastAddress;
 import de.jiac.micro.core.io.IUnicastAddress;
 
 /** 
- * Vladimir Sch&ouml;ner
- * $Revision$
- * 
- * TODO implement methods
+ * @author Vladimir Sch&ouml;ner
+ * @author Marcel Patzlaff
  */
 public class Address implements IMulticastAddress, IUnicastAddress {
+    private static final Base64 CONVERTER= new Base64();
+    private static final byte[] BUFFER= new byte[3];
+    
+    private static synchronized String encode(int id) {
+        for(int s= 0, idx= BUFFER.length - 1; idx >= 0; s+=8, idx--) {
+            BUFFER[idx]= (byte) ((id >> s) & 0xFF);
+        }
+        
+        byte[] result= CONVERTER.encode(BUFFER);
+        return new String(result);
+    }
+    
+    private static synchronized int decode(String idStr) {
+        byte[] idBytes= idStr.getBytes();
+        byte[] result= CONVERTER.decode(idBytes);
+        
+        int id= 0;
+        for(int s= 0, idx= result.length - 1; idx >= 0; s+= 8, idx--) {
+            id|= ((result[idx] & 0xFF) << s);
+        }
+        
+        return id;
+    }
+    
     public static IMulticastAddress createMulticastAddress(String groupName) {
         return new Address(MULTICAST, "mc://" + groupName);
     }
     
-    public static IUnicastAddress createUnicastAddress(long nodeID, String agentID) {
-        return new Address(UNICAST, "uc://" + nodeID + "#" + agentID);
+    public static IUnicastAddress createUnicastAddress(int nodeID, int agentID) {
+        final int id= (nodeID << 8) | agentID;
+        return new Address(UNICAST, "uc://" + encode(id));
     }
     
     public static Address parseAddress(String addressStr) {
@@ -62,9 +84,9 @@ public class Address implements IMulticastAddress, IUnicastAddress {
 	private byte _type;
 	private String _address;
 	
-	private String _agentId;
+	private Integer _agentId;
 	private String _nodeAddressAsString;
-	private long _nodeAddress;
+	private int _nodeAddress;
 	
 	private String _groupName;
 	
@@ -97,7 +119,7 @@ public class Address implements IMulticastAddress, IUnicastAddress {
         return _nodeAddressAsString;
     }
 
-    public long getNodeAddress() {
+    public int getNodeAddress() {
         if(_type != UNICAST) {
             throw new RuntimeException("operation not available for '" + _address + "'");
         }
@@ -106,6 +128,14 @@ public class Address implements IMulticastAddress, IUnicastAddress {
     }
     
     public String getSelector() {
+        if(_type != UNICAST) {
+            throw new RuntimeException("operation not available for '" + _address + "'");
+        }
+        
+        return _agentId.toString();
+    }
+    
+    public Integer getSelectorAsInteger() {
         if(_type != UNICAST) {
             throw new RuntimeException("operation not available for '" + _address + "'");
         }
@@ -124,10 +154,10 @@ public class Address implements IMulticastAddress, IUnicastAddress {
     private void initFields() {
         switch(_type) {
             case UNICAST: {
-                int hashmark= _address.indexOf('#');
-                _nodeAddressAsString= _address.substring(5, hashmark);
-                _agentId= _address.substring(hashmark + 1);
-                _nodeAddress= Long.parseLong(_nodeAddressAsString);
+                int id= decode(_address.substring(5));
+                _agentId= new Integer(id & 0xFF);
+                _nodeAddress= id >> 8;
+                _nodeAddressAsString= String.valueOf(_nodeAddress);
                 break;
             }
             
