@@ -16,11 +16,13 @@ meaning in "Java Microedition".
 Componentware".
 
 For more information see:
-*	http://www.jiac.de
-*	http://www.dai-labor.de
+*	[jiac]
+*	[dailab]
 
+  [jiac]: http://www.jiac.de
+  [dailab]: http://www.dai-labor.de
 
-<h2 id="features>Features of MicroJIAC</h2>
+<h2 id="features">Features of MicroJIAC</h2>
 
 *	low memory footprint
 *	allows implementation of scalable and device independent agents
