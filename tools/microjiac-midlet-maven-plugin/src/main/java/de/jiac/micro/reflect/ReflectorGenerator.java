@@ -147,7 +147,7 @@ public class ReflectorGenerator extends GeneratorUtil {
         String nameParam = "name";
         String argumentsParam = "arguments";
         
-        out.println(indent + "public Object invokeMethod0(Object " + objParam + ", String " + nameParam + ", Object[] "+ argumentsParam + ") throws Exception {");
+        out.println(indent + "protected Object invokeMethod0(Object " + objParam + ", String " + nameParam + ", Object[] "+ argumentsParam + ") throws Exception {");
         // TODO
         out.println(indent + "\tthrow new RuntimeException(\"unsupported operation\");");
         out.println(indent + "}");

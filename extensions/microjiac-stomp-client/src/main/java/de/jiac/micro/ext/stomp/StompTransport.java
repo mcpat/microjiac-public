@@ -105,8 +105,9 @@ public final class StompTransport extends Transport {
                     internalReceive();
                 }
             } catch (Exception e) {
-                if(connection == _connection)
-                delegate.onError(StompTransport.this, e);
+                if(connection == _connection) {
+                    delegate.onError(StompTransport.this, e);
+                }
             }
         }
         

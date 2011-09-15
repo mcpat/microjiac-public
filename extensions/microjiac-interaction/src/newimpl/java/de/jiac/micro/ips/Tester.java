@@ -24,18 +24,23 @@
 package de.jiac.micro.ips;
 
 import java.io.IOException;
+import java.util.Vector;
 
+import de.dailab.keks.io.Address;
 import de.jiac.micro.agent.handle.ICommunicationHandle;
+import de.jiac.micro.core.IHandle;
 import de.jiac.micro.core.io.IAddress;
 import de.jiac.micro.core.io.IMessage;
 import de.jiac.micro.core.io.IMulticastAddress;
 import de.jiac.micro.core.io.IUnicastAddress;
+import de.jiac.micro.core.scope.Scope;
 import de.jiac.micro.internal.io.Message;
 import de.jiac.micro.ips.AbstractProtocolPart.Interaction;
 import de.jiac.micro.ips.request.IRequestInitiatorHandler;
 import de.jiac.micro.ips.request.IRequestParticipantHandler;
 import de.jiac.micro.ips.request.RequestProtocolInitiator;
 import de.jiac.micro.ips.request.RequestProtocolParticipant;
+import de.jiac.micro.test.environment.TestScope;
 
 /**
  *
@@ -72,53 +77,117 @@ public class Tester {
     }
     
     private static final class Communicator implements ICommunicationHandle {
+        private final IUnicastAddress _localAddress;
+        
+        private final Vector _messages= new Vector();
+        
+        Communicator() {
+            _localAddress= Address.createUnicastAddress("foo", String.valueOf(hashCode()));
+        }
+        
+        private Communicator _dst;
+        
+        void link(Communicator dst) {
+            _dst= dst;
+        }
+        
+        void handleMessage(IAddress target, IMessage message) {
+            synchronized (_messages) {
+                _messages.addElement(message);
+                _messages.notify();
+            }
+        }
+        
+        void workOnMessages() {
+            while(true) {
+                Message m= null;
+                System.out.println("work on messages");
+                synchronized (_messages) {
+                    while(_messages.size() <= 0) {
+                        try {
+                            _messages.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            return;
+                        }
+                    }
+                    
+                    m= (Message) _messages.elementAt(0);
+                    _messages.removeElementAt(0);
+                }
+                
+                if(m != null) {
+                    InteractionManager im= (InteractionManager) Scope.getContainer().getHandle(InteractionManager.class);
+                    im.handleMessage(m);
+                }
+            }
+        }
+        
         public IMessage createMessage() {
             return new Message();
         }
 
         public IAddress getAddressForString(String addressStr) {
-            // TODO Auto-generated method stub
-            return null;
+            return Address.createAddressForURI(addressStr);
         }
 
         public IUnicastAddress[] getLocalAddresses() {
-            // TODO Auto-generated method stub
-            return null;
+            return new IUnicastAddress[] {_localAddress};
         }
 
         public IMulticastAddress getMulticastAddressForName(String groupName) {
-            // TODO Auto-generated method stub
-            return null;
+            return Address.createMulticastAddress(groupName);
         }
 
         public void joinGroup(IMulticastAddress address) throws IOException {
-            // TODO Auto-generated method stub
-            
+            // noop
         }
 
         public void leaveGroup(IMulticastAddress address) throws IOException {
-            // TODO Auto-generated method stub
-            
+            // noop
         }
 
         public void sendMessage(IAddress address, IMessage message) throws IOException {
-            // TODO Auto-generated method stub
-            
+            _dst.handleMessage(address, message);
         }
     }
     
-    
-    protected static ICommunicationHandle COMM;
-    
     public static void main(String[] args) throws Exception {
-        InteractionManager iim= new InteractionManager();
-        RequestProtocolInitiator initiator= new RequestProtocolInitiator("test", new InitiatorHandler());
+        final InteractionManager iim= new InteractionManager();
+        final Communicator ic= new Communicator();
+        final RequestProtocolInitiator initiator= new RequestProtocolInitiator("test", new InitiatorHandler());
         iim.registerProtocolPart(initiator);
         
-        initiator.issueRequest(null, "Hallo Welt", 1000L, null);
+        Thread isatt= TestScope.createScopeAwareTestThread(
+            new Runnable() {
+                public void run() {
+                    System.out.println("try to issue request");
+                    initiator.issueRequest(null, "Hallo Welt", 1000L, null);
+                    System.out.println("request seems to be successful");
+                    ic.workOnMessages();
+                }
+            },
+            new IHandle[]{ic, iim}
+        );
         
         InteractionManager pim= new InteractionManager();
+        final Communicator pc= new Communicator();
         RequestProtocolParticipant participant= new RequestProtocolParticipant("test", new ParticipantHandler());
         pim.registerProtocolPart(participant);
+        
+        Thread psatt= TestScope.createScopeAwareTestThread(
+            new Runnable() {
+                public void run() {
+                    pc.workOnMessages();
+                }
+            },
+            new IHandle[]{pc, pim}
+        );
+        
+        pc.link(ic);
+        ic.link(pc);
+        psatt.start();
+        Thread.sleep(1000);
+        isatt.start();
     }
 }

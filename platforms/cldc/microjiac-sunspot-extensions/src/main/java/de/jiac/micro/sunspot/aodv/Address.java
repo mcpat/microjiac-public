@@ -103,7 +103,12 @@ public class Address implements IMulticastAddress, IUnicastAddress {
     public String toString() {
         return _address;
     }
+    
     public boolean equals(Object obj) {
+        if(!(obj instanceof Address)) {
+            return false;
+        }
+        
         return toString().equals(obj.toString());
     }
 

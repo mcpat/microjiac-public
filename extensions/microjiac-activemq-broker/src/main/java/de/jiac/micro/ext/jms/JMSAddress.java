@@ -38,15 +38,15 @@ public class JMSAddress implements IUnicastAddress, IMulticastAddress {
     private String address;
     private String addressName;
     
-    static JMSAddress getAddressForString(String addrString) {
-        addrString= addrString.toLowerCase();
+    static JMSAddress getAddressForString(final String addrString) {
+        String lowerCase= addrString.toLowerCase();
         
-        if(addrString.startsWith("uc://")) {
-            return new JMSAddress(addrString, UNICAST);
-        } else if(addrString.startsWith("mc://")) {
-            return new JMSAddress(addrString, MULTICAST);
+        if(lowerCase.startsWith("uc://")) {
+            return new JMSAddress(lowerCase, UNICAST);
+        } else if(lowerCase.startsWith("mc://")) {
+            return new JMSAddress(lowerCase, MULTICAST);
         } else {
-            throw new IllegalArgumentException("invalid address '" + addrString + "'");
+            throw new IllegalArgumentException("invalid address '" + lowerCase + "'");
         }
     }
     

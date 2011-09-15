@@ -155,8 +155,9 @@ public class JavaApplicationDescriptor {
     public void refreshVersion(Attributes attributes) {
         String value= attributes.getValue(API);
         
-        if(value == null)
+        if(value == null) {
             return;
+        }
         
         if(PROFILES.contains(value)) {
             _resolver.addProfile(value, attributes.getValue(VERSION));

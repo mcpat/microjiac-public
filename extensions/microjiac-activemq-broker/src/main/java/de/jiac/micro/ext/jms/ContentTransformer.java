@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.jms.BytesMessage;
+import javax.jms.JMSException;
 import javax.jms.Session;
 
 import com.github.libxjava.io.BinaryDeserialiserStream;
@@ -88,7 +89,7 @@ public final class ContentTransformer {
         }
     }
     
-    BytesMessage pack(Message message, Session session) throws Exception {
+    BytesMessage pack(Message message, Session session) throws IOException, JMSException {
         final Object payload= message.getContent();
         final javax.jms.BytesMessage result= session.createBytesMessage();
         result.writeBytes(toByteArray(payload));
@@ -101,7 +102,7 @@ public final class ContentTransformer {
         return result;
     }
     
-    Message unpack(BytesMessage message) throws Exception {
+    Message unpack(BytesMessage message) throws ClassNotFoundException, IOException, JMSException {
         final int length= (int) message.getBodyLength();
         final byte[] data= new byte[length];
         message.readBytes(data);

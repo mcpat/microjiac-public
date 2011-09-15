@@ -73,6 +73,7 @@ final class JMSSender {
         final BytesMessage jmsMessage= _transformer.pack((Message) message, _session);
         jmsMessage.setJMSDestination(destination);
         _producer.send(destination, jmsMessage);
+        _logger.debug("JMS: message sent to " + destination.toString());
     }
 
 }

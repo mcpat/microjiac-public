@@ -124,6 +124,11 @@
 								<exclude>**/IScope.class</exclude>
 								<exclude>**/IScope$IScopeStateChangeListener.class</exclude>
 							</excludes>
+							<archive>
+								<manifestEntries>
+									<MicroJIAC-Module-Archive>${project.build.finalName}-runtime.${project.packaging}</MicroJIAC-Module-Archive>
+								</manifestEntries>
+							</archive>
 						</configuration>
 					</execution>
 					<execution>
@@ -139,6 +144,11 @@
 								<include>**/IScope.class</include>
 								<include>**/IScope$IScopeStateChangeListener.class</include>
 							</includes>
+							<archive>
+								<manifestEntries>
+									<MicroJIAC-Module-Archive>${project.build.finalName}-bootstrap.${project.packaging}</MicroJIAC-Module-Archive>
+								</manifestEntries>
+							</archive>
 						</configuration>
 					</execution>
 					<execution>
@@ -153,6 +163,11 @@
 								<include>**/IMessage*</include>
 								<include>**/IFact.class</include>
 							</includes>
+							<archive>
+								<manifestEntries>
+									<MicroJIAC-Module-Archive>${project.build.finalName}-io-api.${project.packaging}</MicroJIAC-Module-Archive>
+								</manifestEntries>
+							</archive>
 						</configuration>
 					</execution>
 					<execution>
@@ -163,6 +178,11 @@
 						<configuration>
 							<classifier>stubs</classifier>
 							<classesDirectory>${microjiac-base-impl-stubs}</classesDirectory>
+							<archive>
+								<manifestEntries>
+									<MicroJIAC-Module-Archive>${project.build.finalName}-stubs.${project.packaging}</MicroJIAC-Module-Archive>
+								</manifestEntries>
+							</archive>
 						</configuration>
 					</execution>
 				</executions>

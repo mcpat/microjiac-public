@@ -61,6 +61,6 @@ public class TestScope extends Scope {
     }
     
     public static void runInScope(Runnable runnable, IHandle[] scopeHandles) {
-        createScopeAwareTestThread(runnable, scopeHandles);
+        createScopeAwareTestThread(runnable, scopeHandles).start();
     }
 }

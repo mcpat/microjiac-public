@@ -23,12 +23,8 @@
 
 package de.jiac.micro.ips;
 
-import java.io.IOException;
-
 import de.jiac.micro.agent.handle.ICommunicationHandle;
-import de.jiac.micro.core.io.IAddress;
 import de.jiac.micro.core.io.IMessage;
-import de.jiac.micro.core.io.IMulticastAddress;
 import de.jiac.micro.core.io.IUnicastAddress;
 import de.jiac.micro.core.scope.Scope;
 
@@ -101,8 +97,7 @@ public abstract class AbstractProtocolPart {
     }
     
     protected static ICommunicationHandle getCommunicationHandle() {
-//        return (ICommunicationHandle) Scope.getContainer().getHandle(ICommunicationHandle.class);
-        return new Tester.Communicator();
+        return (ICommunicationHandle) Scope.getContainer().getHandle(ICommunicationHandle.class);
     }
     
     protected static IMessage newInteractionMessage(ICommunicationHandle ch, Interaction ctx, String performative) {

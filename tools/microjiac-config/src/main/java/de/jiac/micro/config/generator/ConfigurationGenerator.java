@@ -578,8 +578,8 @@ public class ConfigurationGenerator {
             throw new GeneratorException("checker has found errors");
         }
         
-ConventionEnforcer analyser= context.createEnforcer();
-analyser.analyseAndEnforce(conf);
+//ConventionEnforcer analyser= context.createEnforcer();
+//analyser.analyseAndEnforce(conf);
         
         return generator.generate(lateBindDirectory, packageName, conf);
     }

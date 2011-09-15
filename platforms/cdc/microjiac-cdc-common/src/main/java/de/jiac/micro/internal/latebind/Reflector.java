@@ -270,6 +270,7 @@ public final class Reflector extends AbstractReflector {
             
             // wrap superType if it is primitive
             superType= wrap(superType);
+            descendent= wrap(descendent);
 
             if(!superType.isAssignableFrom(descendent)) {
                 return Integer.MAX_VALUE;

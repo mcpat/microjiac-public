@@ -235,8 +235,9 @@ public class ConfiguratorMojo extends AbstractMojo {
         for (Object artObj : pluginDeps) {
             File file = ((Artifact) artObj).getFile();
 
-            if (file != null)
+            if (file != null) {
                 classpath.add(file.toURI());
+            }
         }
         
         URL[] urls= new URL[classpath.size()];
@@ -254,8 +255,9 @@ public class ConfiguratorMojo extends AbstractMojo {
 
         JarFile jarFile = new JarFile(file);
         for (JarEntry entry : Collections.list(jarFile.entries())) {
-            if (entry.getName().endsWith("pom.xml"))
+            if (entry.getName().endsWith("pom.xml")) {
                 return jarFile.getInputStream(entry);
+            }
         }
 
         return null;

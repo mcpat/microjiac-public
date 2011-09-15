@@ -40,7 +40,7 @@ import javax.microedition.io.StreamConnection;
 public class StreamMapper extends AbstractConnectionMapper {
     public final synchronized void initialise(Connection mapped) throws IOException {
         close();
-        if(mapped == null || !(mapped instanceof StreamConnection)) {
+        if(!(mapped instanceof StreamConnection)) {
             throw new IOException("invalid connection type: " + mapped);
         }
         

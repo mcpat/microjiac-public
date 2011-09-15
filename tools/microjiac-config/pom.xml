@@ -17,7 +17,7 @@
 		<asm-version>3.1</asm-version>
 		<jaxb2-basics-version>0.6.0</jaxb2-basics-version>
 		<jaxb2-version>2.1.13</jaxb2-version>
-		<aamm-version>1.1-SNAPSHOT</aamm-version>
+		<aamm-version>1.1.2-SNAPSHOT</aamm-version>
 	</properties>
 	
 	<dependencies>

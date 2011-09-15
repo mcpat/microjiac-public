@@ -66,7 +66,11 @@ abstract class ReflectorStub extends AbstractReflector {
         final IClassLoader classLoader= Scope.getContainer().getClassLoader();
         final Class cls= classLoader.loadClass(className);
         
-        if(countArguments(mDescr) == 1) {
+        final int argCount= countArguments(mDescr);
+        
+        if(argCount == 0) {
+            return invokeMethodWithDescriptor0(obj, cls, mName, mDescr, noArgs);
+        } else if(argCount == 1) {
             synchronized (oneArgument) {
                 oneArgument[0]= arguments;
                 

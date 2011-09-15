@@ -85,12 +85,10 @@ public abstract class AbstractContainer implements IContainer, ILifecycleAware {
     public abstract void stop();
     
     protected final String getDisplayName() {
-        if(_displayName == null) {
-            synchronized(this) {
-                if(_displayName == null) {
-                    AbstractContainerConfiguration conf= (AbstractContainerConfiguration) getHandle(AbstractContainerConfiguration.class);
-                    _displayName= conf.displayName;
-                }
+        synchronized(this) {
+            if(_displayName == null) {
+                AbstractContainerConfiguration conf= (AbstractContainerConfiguration) getHandle(AbstractContainerConfiguration.class);
+                _displayName= conf.displayName;
             }
         }
         

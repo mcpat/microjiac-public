@@ -29,6 +29,13 @@
 			<artifactId>slf4cldc-api</artifactId>
 		</dependency>
 
+
+		<dependency>
+			<groupId>de.jiac.micro.tools</groupId>
+			<artifactId>microjiac-test-scope</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
