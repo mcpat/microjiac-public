@@ -2,7 +2,7 @@
 @REM MicroJIAC - A Lightweight Agent Framework
 @REM This file is part of MicroJIAC Java6-Platform.
 @REM
-@REM Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+@REM Copyright (c) 2007-2012 DAI-Labor, Technische Universität Berlin
 @REM
 @REM This library includes software developed at DAI-Labor, Technische
 @REM Universität Berlin (http://www.dai-labor.de)

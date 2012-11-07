@@ -14,7 +14,7 @@
 	<description>Embedded ActiveMQ-Broker for MicroJIAC</description>
 
 	<properties>
-		<activemq-version>5.3.0</activemq-version>
+		<activemq-version>5.7.0</activemq-version>
 	</properties>
 
 	<dependencies>

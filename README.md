@@ -1,4 +1,4 @@
-MicroJIAC - A Lightweight Agent Framework (Version 3.0)
+MicroJIAC - A Lightweight Agent Framework (Version 3.1)
 =======================================================
 
 *	Meaning of "MicroJIAC"

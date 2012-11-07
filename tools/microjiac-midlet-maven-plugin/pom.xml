@@ -14,7 +14,7 @@
 	<description>Bundle of Maven extensions to build MicroJIAC modules for MIDlet-based profiles.</description>
 
 	<properties>
-		<proguard-version>4.3</proguard-version>
+		<proguard-version>4.7</proguard-version>
 		<microjiac-header>${project.basedir}/gpl_header.txt</microjiac-header>
 	</properties>
 	

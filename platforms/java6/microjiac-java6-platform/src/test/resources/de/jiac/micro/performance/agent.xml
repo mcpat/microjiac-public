@@ -3,7 +3,7 @@
     MicroJIAC - A Lightweight Agent Framework
     This file is part of MicroJIAC Java6-Platform.
 
-    Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+    Copyright (c) 2007-2012 DAI-Labor, Technische Universität Berlin
 
     This library includes software developed at DAI-Labor, Technische
     Universität Berlin (http://www.dai-labor.de)
@@ -22,7 +22,6 @@
     along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.jiac.de/microJIAC/configuration">
 	<node id="myNode" class="de.jiac.micro.performance.TestNode">
 		<agentRef ref="myAgent"/>

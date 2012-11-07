@@ -2,7 +2,7 @@
  * MicroJIAC - A Lightweight Agent Framework
  * This file is part of MicroJIAC MIDlet-Maven-Plugin.
  *
- * Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+ * Copyright (c) 2007-2012 DAI-Labor, Technische Universität Berlin
  *
  * This library includes software developed at DAI-Labor, Technische
  * Universität Berlin (http://www.dai-labor.de)
@@ -20,7 +20,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
 /*
  * $Id$ 
  */
@@ -136,9 +135,6 @@ public class ClassInfoReducer {
         }
     }
     
-    /**
-     * Map&lt;Class,ClassDescriptor&gt;
-     */
     private final HashMap<Class<?>, ReducedClassInfo> _classes= new HashMap<Class<?>, ReducedClassInfo>();
     
     private final HashMap<Class<?>, Integer> _masks= new HashMap<Class<?>, Integer>();

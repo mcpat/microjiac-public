@@ -2,7 +2,7 @@
  * MicroJIAC - A Lightweight Agent Framework
  * This file is part of MicroJIAC Base-Implementation.
  *
- * Copyright (c) 2007-2011 DAI-Labor, Technische Universität Berlin
+ * Copyright (c) 2007-2012 DAI-Labor, Technische Universität Berlin
  *
  * This library includes software developed at DAI-Labor, Technische
  * Universität Berlin (http://www.dai-labor.de)
@@ -20,7 +20,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /* 
  * $Id: IMessage.java 28614 2010-08-11 09:37:13Z marcel $
  */
